@@ -1,7 +1,9 @@
-﻿namespace GameObjects.Production
+﻿using GameObjects.Utils;
+
+namespace GameObjects.Production
 {
-    public class Egg : IProduction
+    public class Egg : ISellable
     {
-        public int Price { get; }
+        public int SellPrice { get; }
     }
 }
