@@ -12,33 +12,36 @@
     возможность совершить описанные выше действия и понять состояние объектов.
  */
 
-public class GameManager : MonoBehaviour
+namespace Managers
 {
-    // static instance of GameManager which allows it to be accessed by any other script 
-    public static GameManager Instance;
-
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        if (Instance == null)
-        {
-            Instance = this;
+        // static instance of GameManager which allows it to be accessed by any other script 
+        public static GameManager Instance;
 
-            DontDestroyOnLoad(gameObject); // sets this to not be destroyed when reloading scene 
-        }
-        else
+        private void Awake()
         {
-            if (Instance != this)
+            if (Instance == null)
             {
-                // this enforces our singleton pattern, meaning there can only ever be one instance of a GameManager 
-                Destroy(gameObject);
+                Instance = this;
+
+                DontDestroyOnLoad(gameObject); // sets this to not be destroyed when reloading scene 
             }
+            else
+            {
+                if (Instance != this)
+                {
+                    // this enforces our singleton pattern, meaning there can only ever be one instance of a GameManager 
+                    Destroy(gameObject);
+                }
+            }
+
+            Initialize();
         }
 
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        //
+        private void Initialize()
+        {
+            //
+        }
     }
 }
