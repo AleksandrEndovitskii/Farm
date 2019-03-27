@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Filed
+namespace Field
 {
     public class Field : MonoBehaviour
     {
