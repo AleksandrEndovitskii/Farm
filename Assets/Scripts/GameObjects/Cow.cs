@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameObjects.Utils;
+using UnityEngine;
 
 namespace GameObjects
 {
@@ -6,8 +7,10 @@ namespace GameObjects
         • Если еды достаточно, то корова даёт молоко раз в 20 сек;
         • 1 единицы пшеницы хватает на 20 сек корове;
      */
-    public class Cow : MonoBehaviour
+    public class Cow : MonoBehaviour, IBuyable
     {
+        public int BuyPrice { get; }
+
         // Start is called before the first frame update
         void Start()
         {
