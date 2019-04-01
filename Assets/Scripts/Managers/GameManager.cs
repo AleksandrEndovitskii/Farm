@@ -2,12 +2,6 @@
 using UnityEngine;
 using Utils;
 
-/*
-Минимальная функциональность:
-    • Возможность расставлять объекты (сущности) на поле и 
-        покупать новые при помощи простого интерфейса;
- */
-
 namespace Managers
 {
     public class GameManager : MonoBehaviour, IInitializable
@@ -18,6 +12,11 @@ namespace Managers
         public UserInterfaceManager UserInterfaceManager
         {
             get { return this.gameObject.GetComponent<UserInterfaceManager>(); }
+        }
+
+        public GameObjectsManager GameObjectsManager
+        {
+            get { return this.gameObject.GetComponent<GameObjectsManager>(); }
         }
 
         public ConfigurationService ConfigurationService;
@@ -45,6 +44,7 @@ namespace Managers
         public void Initialize()
         {
             UserInterfaceManager.Initialize();
+            GameObjectsManager.Initialize();
 
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
