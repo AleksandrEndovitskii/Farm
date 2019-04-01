@@ -46,6 +46,12 @@ namespace Services
                 var json = File.ReadAllText(filePath);
                 config = JsonUtility.FromJson<Config>(json);
             }
+            else
+            {
+                Save(config, _jsonName);
+
+                Debug.LogWarning(string.Format("No {0} file was provided - empty config was created and loaded.", _jsonName));
+            }
 
             return config;
         }
