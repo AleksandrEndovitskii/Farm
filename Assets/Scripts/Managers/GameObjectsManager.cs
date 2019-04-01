@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameObjects.Field;
+using UnityEngine;
 using Utils;
 
 /*
@@ -11,9 +12,18 @@ namespace Managers
 {
     public class GameObjectsManager : MonoBehaviour, IInitializable
     {
+        [SerializeField]
+        private Canvas Canvas;
+
+        [SerializeField]
+        private Field FieldPrefab;
+
+        private Field _fieldInstance;
+
         public void Initialize()
         {
-            //
+            _fieldInstance = Instantiate(FieldPrefab, Canvas.transform);
+
         }
     }
 }
