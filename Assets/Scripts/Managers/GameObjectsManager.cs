@@ -25,6 +25,9 @@ namespace Managers
         private Field _fieldInstance;
         private List<Cell> _cellInstances = new List<Cell>();
 
+        /*
+            • Поле фермы 8x8 клеток;
+        */
         private const int FieldHeight = 8;
         private const int FieldWidth = 8;
 
