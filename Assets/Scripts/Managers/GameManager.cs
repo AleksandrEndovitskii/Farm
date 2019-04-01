@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utils;
 
 /*
 Минимальная функциональность:
@@ -12,7 +13,7 @@
 
 namespace Managers
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoBehaviour, IInitializable
     {
         // static instance of GameManager which allows it to be accessed by any other script 
         public static GameManager Instance;
@@ -37,7 +38,7 @@ namespace Managers
             Initialize();
         }
 
-        private void Initialize()
+        public void Initialize()
         {
             //
         }
