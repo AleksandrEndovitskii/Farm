@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Cells
+namespace GameObjects.Cells
 {
     /*
         • На клетке может располагаться одна из следующих сущностей:

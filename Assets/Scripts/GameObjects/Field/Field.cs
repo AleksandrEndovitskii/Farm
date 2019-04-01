@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Field
+namespace GameObjects.Field
 {
     /*
         • Поле фермы 8x8 клеток;
