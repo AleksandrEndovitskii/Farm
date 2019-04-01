@@ -1,4 +1,4 @@
-using Utils;
+﻿using Utils;
 
 namespace Services
 {
@@ -8,7 +8,7 @@ namespace Services
 
         public void Initialize()
         {
-            //
+            MoneyAmount = 100;
         }
     }
 }

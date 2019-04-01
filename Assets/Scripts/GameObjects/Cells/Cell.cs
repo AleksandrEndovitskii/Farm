@@ -1,4 +1,5 @@
-﻿using GameObjects.Utils;
+﻿using System;
+using GameObjects.Utils;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,6 +40,8 @@ namespace GameObjects.Cells
             }
         }
 
+        private static System.Random _random = new System.Random();
+
         public void Place(IPlaceable placeable)
         {
             Content = placeable;
@@ -46,7 +49,30 @@ namespace GameObjects.Cells
 
         public void OnClick()
         {
+            var randomValue = _random.Next(0, 3);
 
+            IPlaceable placeable = null;
+
+            switch (randomValue)
+            {
+                case 0:
+                    placeable = GameManager.Instance.TradeService.TryBuy<Wheat>();
+                    break;
+                case 1:
+                    placeable = GameManager.Instance.TradeService.TryBuy<Chicken>();
+                    break;
+                case 2:
+                    placeable = GameManager.Instance.TradeService.TryBuy<Cow>();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+
+            if (placeable != null)
+            {
+                Place(placeable);
+            }
         }
     }
 }

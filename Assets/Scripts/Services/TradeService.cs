@@ -1,3 +1,4 @@
+﻿using GameObjects;
 using GameObjects.Utils;
 using Managers;
 using UnityEngine;
@@ -9,7 +10,9 @@ namespace Services
     {
         public void Initialize()
         {
-            //
+            GameManager.Instance.PriceService.SetPriceForType<Wheat>(10);
+            GameManager.Instance.PriceService.SetPriceForType<Chicken>(20);
+            GameManager.Instance.PriceService.SetPriceForType<Cow>(30);
         }
 
         public void Sell(ISellable sellable)
