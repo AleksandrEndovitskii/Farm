@@ -28,6 +28,8 @@ namespace Managers
 
         public TradeService TradeService;
 
+        public PriceService PriceService;
+
         private void Awake()
         {
             if (Instance == null)
@@ -58,6 +60,8 @@ namespace Managers
             ConfigurationService.Initialize();
             TradeService = new TradeService();
             TradeService.Initialize();
+            PriceService = new PriceService();
+            PriceService.Initialize();
         }
     }
 }
