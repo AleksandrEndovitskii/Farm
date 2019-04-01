@@ -30,6 +30,8 @@ namespace Managers
 
         public PriceService PriceService;
 
+        public MoneyService MoneyService;
+
         private void Awake()
         {
             if (Instance == null)
@@ -62,6 +64,8 @@ namespace Managers
             TradeService.Initialize();
             PriceService = new PriceService();
             PriceService.Initialize();
+            MoneyService = new MoneyService();
+            MoneyService.Initialize();
         }
     }
 }

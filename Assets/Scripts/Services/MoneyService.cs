@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+﻿using Utils;
 
 namespace Services
 {
-    public class MoneyService : MonoBehaviour
+    public class MoneyService : IInitializable
     {
         public int MoneyAmount { get; }
+
+        public void Initialize()
+        {
+            //
+        }
     }
 }
