@@ -6,10 +6,6 @@ using Utils;
 Минимальная функциональность:
     • Возможность расставлять объекты (сущности) на поле и 
         покупать новые при помощи простого интерфейса;
-Игра должна включать в себя простейшую графическую реализацию:
-    отображение объектов,
-    индикаторы прогресса и корма,
-    возможность совершить описанные выше действия и понять состояние объектов.
  */
 
 namespace Managers
@@ -18,6 +14,11 @@ namespace Managers
     {
         // static instance of GameManager which allows it to be accessed by any other script 
         public static GameManager Instance;
+
+        public UserInterfaceManager UserInterfaceManager
+        {
+            get { return this.gameObject.GetComponent<UserInterfaceManager>(); }
+        }
 
         public ConfigurationService ConfigurationService;
 
@@ -43,6 +44,8 @@ namespace Managers
 
         public void Initialize()
         {
+            UserInterfaceManager.Initialize();
+
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
         }
