@@ -1,4 +1,6 @@
-﻿using GameObjects.Field;
+﻿using System.Collections.Generic;
+using GameObjects.Cells;
+using GameObjects.Field;
 using UnityEngine;
 using Utils;
 
@@ -17,13 +19,27 @@ namespace Managers
 
         [SerializeField]
         private Field FieldPrefab;
+        [SerializeField]
+        private Cell CellPrefab;
 
         private Field _fieldInstance;
+        private List<Cell> _cellInstances = new List<Cell>();
+
+        private const int FieldHeight = 8;
+        private const int FieldWidth = 8;
 
         public void Initialize()
         {
             _fieldInstance = Instantiate(FieldPrefab, Canvas.transform);
 
+            for (var i = 0; i < FieldHeight; i++)
+            {
+                for (var j = 0; j < FieldWidth; j++)
+                {
+                    var cellInstance = Instantiate(CellPrefab, _fieldInstance.transform);
+                    _cellInstances.Add(cellInstance);
+                } 
+            }
         }
     }
 }
