@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Services;
+using UnityEngine;
 using Utils;
 
 /*
@@ -17,6 +18,8 @@ namespace Managers
     {
         // static instance of GameManager which allows it to be accessed by any other script 
         public static GameManager Instance;
+
+        public ConfigurationService ConfigurationService;
 
         private void Awake()
         {
@@ -40,7 +43,8 @@ namespace Managers
 
         public void Initialize()
         {
-            //
+            ConfigurationService = new ConfigurationService();
+            ConfigurationService.Initialize();
         }
     }
 }
