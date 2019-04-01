@@ -19,6 +19,11 @@ namespace Managers
             get { return this.gameObject.GetComponent<GameObjectsManager>(); }
         }
 
+        public ImageManager ImageManager
+        {
+            get { return this.gameObject.GetComponent<ImageManager>(); }
+        }
+
         public ConfigurationService ConfigurationService;
 
         private void Awake()
@@ -45,6 +50,7 @@ namespace Managers
         {
             UserInterfaceManager.Initialize();
             GameObjectsManager.Initialize();
+            ImageManager.Initialize();
 
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
