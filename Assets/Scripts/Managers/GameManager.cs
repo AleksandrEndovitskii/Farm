@@ -26,9 +26,9 @@ namespace Managers
 
         public ConfigurationService ConfigurationService;
 
-        public TradeService TradeService;
-
         public PriceService PriceService;
+
+        public TradeService TradeService;
 
         public MoneyService MoneyService;
 
@@ -60,10 +60,11 @@ namespace Managers
 
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
-            TradeService = new TradeService();
-            TradeService.Initialize();
             PriceService = new PriceService();
             PriceService.Initialize();
+            //before trade need to know a price
+            TradeService = new TradeService();
+            TradeService.Initialize();
             MoneyService = new MoneyService();
             MoneyService.Initialize();
         }
