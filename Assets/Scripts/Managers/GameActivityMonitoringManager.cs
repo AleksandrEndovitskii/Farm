@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Services
+namespace Managers
 {
     /*
         • Автоматическое сохранение прогресса и загрузка игры с момента последнего сохранения.
