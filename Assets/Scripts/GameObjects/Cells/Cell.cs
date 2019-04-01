@@ -43,5 +43,10 @@ namespace GameObjects.Cells
         {
             Content = placeable;
         }
+
+        public void OnClick()
+        {
+
+        }
     }
 }
