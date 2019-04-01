@@ -22,12 +22,12 @@ namespace Services
 
         public int GetPriceForType<T>() where T : IBuyable
         {
-            if (_buyablePrices.All(x => x.Key.GetType() != typeof(T)))
+            if (_buyablePrices.All(x => x.Key != typeof(T)))
             {
                 throw new ArgumentOutOfRangeException(string.Format("No price was specified for {0}", typeof(T).Name));
             }
 
-            var keyValuePair = _buyablePrices.First(x => x.Key.GetType() == typeof(T));
+            var keyValuePair = _buyablePrices.First(x => x.Key == typeof(T));
 
             return keyValuePair.Value;
         }
