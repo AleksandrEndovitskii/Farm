@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using GameObjects.Utils;
+using Managers;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameObjects.Cells
 {
@@ -11,16 +14,34 @@ namespace GameObjects.Cells
      */
     public class Cell : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField]
+        private Image ContentImage;
+
+        private IPlaceable _content;
+        private IPlaceable Content
         {
-        
+            get
+            {
+                return _content;
+            }
+            set
+            {
+                _content = value;
+
+                if (_content == null)
+                {
+                    ContentImage.sprite = null;
+                }
+                else
+                {
+                    ContentImage.sprite = GameManager.Instance.ImageManager.GetImage(_content.GetType().Name);
+                }
+            }
         }
 
-        // Update is called once per frame
-        void Update()
+        public void Place(IPlaceable placeable)
         {
-        
+            Content = placeable;
         }
     }
 }
