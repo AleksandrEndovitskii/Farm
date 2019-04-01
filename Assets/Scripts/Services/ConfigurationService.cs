@@ -28,7 +28,7 @@ namespace Services
 
         private void Save(Config config, string jsonName)
         {
-            var json = JsonUtility.ToJson(config);
+            var json = JsonUtility.ToJson(config, true);
 
             var filePath = Application.dataPath + "/" + jsonName;
 
