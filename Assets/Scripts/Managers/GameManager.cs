@@ -24,6 +24,11 @@ namespace Managers
             get { return this.gameObject.GetComponent<ImageManager>(); }
         }
 
+        public TimeManager TimeManager
+        {
+            get { return this.gameObject.GetComponent<TimeManager>(); }
+        }
+
         public ConfigurationService ConfigurationService;
 
         public PriceService PriceService;
@@ -57,6 +62,7 @@ namespace Managers
             UserInterfaceManager.Initialize();
             GameObjectsManager.Initialize();
             ImageManager.Initialize();
+            TimeManager.Initialize();
 
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
