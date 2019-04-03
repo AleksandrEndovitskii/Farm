@@ -2,6 +2,6 @@
 {
     public interface IBuyable
     {
-        int BuyPrice { get; }
+
     }
 }

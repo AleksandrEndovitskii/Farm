@@ -9,8 +9,6 @@ namespace GameObjects
      */
     public class Wheat : IBuyable, IPlaceable, IFood, IProducer
     {
-        public int BuyPrice { get; }
-
         public int WillProduceAfterSecondsCount { get; }
 
         public Wheat(int willProduceAfterSecondsCount)

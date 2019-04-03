@@ -9,8 +9,6 @@ namespace GameObjects
      */
     public class Chicken : IBuyable, IPlaceable, IFeedable, IFuelRequiringProducer
     {
-        public int BuyPrice { get; }
-
         public int HaveFuelForSecondsCount { get; }
         public int WillProduceAfterSecondsCount { get; }
 
