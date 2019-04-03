@@ -1,4 +1,5 @@
-using GameObjects.Utils;
+﻿using GameObjects.Utils;
+using Managers;
 
 namespace GameObjects
 {
@@ -15,6 +16,13 @@ namespace GameObjects
         public Wheat(int willProduceAfterSecondsCount)
         {
             WillProduceAfterSecondsCount = willProduceAfterSecondsCount;
+
+            GameManager.Instance.TimeManager.SecondPassed += TimeManagerOnSecondPassed;
+        }
+
+        private void TimeManagerOnSecondPassed()
+        {
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-using GameObjects.Utils;
+﻿using GameObjects.Utils;
+using Managers;
 
 namespace GameObjects
 {
@@ -17,9 +18,19 @@ namespace GameObjects
         {
             HaveFuelForSecondsCount = haveFuelForSecondsCount;
             WillProduceAfterSecondsCount = willProduceAfterSecondsCount;
+
+            GameManager.Instance.TimeManager.SecondPassed += TimeManagerOnSecondPassed;
         }
 
         public void Feed(IFood food)
+        {
+            if (food is Wheat)
+            {
+
+            }
+        }
+
+        private void TimeManagerOnSecondPassed()
         {
 
         }
