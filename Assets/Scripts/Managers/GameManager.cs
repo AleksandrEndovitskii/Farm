@@ -37,6 +37,8 @@ namespace Managers
 
         public MoneyService MoneyService;
 
+        public ProductionDurationService ProductionDurationService;
+
         private void Awake()
         {
             if (Instance == null)
@@ -73,6 +75,8 @@ namespace Managers
             TradeService.Initialize();
             MoneyService = new MoneyService();
             MoneyService.Initialize();
+            ProductionDurationService = new ProductionDurationService();
+            ProductionDurationService.Initialize();
         }
     }
 }
