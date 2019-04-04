@@ -39,6 +39,8 @@ namespace Managers
 
         public ProductionDurationService ProductionDurationService;
 
+        public SatietyDurationService SatietyDurationService;
+
         private void Awake()
         {
             if (Instance == null)
@@ -77,6 +79,8 @@ namespace Managers
             MoneyService.Initialize();
             ProductionDurationService = new ProductionDurationService();
             ProductionDurationService.Initialize();
+            SatietyDurationService = new SatietyDurationService();
+            SatietyDurationService.Initialize();
         }
     }
 }
