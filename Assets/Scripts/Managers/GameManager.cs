@@ -31,15 +31,15 @@ namespace Managers
 
         public ConfigurationService ConfigurationService;
 
-        public PriceService PriceService;
+        public BuyPriceDictionaryService buyPriceDictionaryService;
 
         public TradeService TradeService;
 
         public MoneyService MoneyService;
 
-        public ProductionDurationService ProductionDurationService;
+        public ProductionDurationDictionaryService ProductionDurationDictionaryService;
 
-        public SatietyDurationService SatietyDurationService;
+        public SatietyDurationDictionaryService SatietyDurationDictionaryService;
 
         private void Awake()
         {
@@ -70,17 +70,17 @@ namespace Managers
 
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
-            PriceService = new PriceService();
-            PriceService.Initialize();
+            buyPriceDictionaryService = new BuyPriceDictionaryService();
+            buyPriceDictionaryService.Initialize();
             //before trade need to know a price
             TradeService = new TradeService();
             TradeService.Initialize();
             MoneyService = new MoneyService();
             MoneyService.Initialize();
-            ProductionDurationService = new ProductionDurationService();
-            ProductionDurationService.Initialize();
-            SatietyDurationService = new SatietyDurationService();
-            SatietyDurationService.Initialize();
+            ProductionDurationDictionaryService = new ProductionDurationDictionaryService();
+            ProductionDurationDictionaryService.Initialize();
+            SatietyDurationDictionaryService = new SatietyDurationDictionaryService();
+            SatietyDurationDictionaryService.Initialize();
         }
     }
 }

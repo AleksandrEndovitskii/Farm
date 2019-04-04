@@ -10,9 +10,10 @@ namespace Services
     {
         public void Initialize()
         {
-            GameManager.Instance.PriceService.SetPriceForType<Wheat>(10);
-            GameManager.Instance.PriceService.SetPriceForType<Chicken>(20);
-            GameManager.Instance.PriceService.SetPriceForType<Cow>(30);
+            // test data
+            GameManager.Instance.buyPriceDictionaryService.SetBuyPriceForType<Wheat>(10);
+            GameManager.Instance.buyPriceDictionaryService.SetBuyPriceForType<Chicken>(20);
+            GameManager.Instance.buyPriceDictionaryService.SetBuyPriceForType<Cow>(30);
         }
 
         public void Sell(ISellable sellable)
@@ -27,7 +28,7 @@ namespace Services
 
         public T TryBuy<T>() where T: IBuyable, new()
         {
-            var price = GameManager.Instance.PriceService.GetPriceForType<T>();
+            var price = GameManager.Instance.buyPriceDictionaryService.GetBuyPriceForType<T>();
 
             if (price > GameManager.Instance.MoneyService.MoneyAmount)
             {
