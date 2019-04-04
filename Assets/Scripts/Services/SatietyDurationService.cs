@@ -13,8 +13,8 @@ namespace Services
 
         public void Initialize()
         {
-            SetSatietyForProduction<Chicken>(10); // Если еды достаточно, то курица несёт одно яйцо за 10 сек
-            SetSatietyForProduction<Cow>(20); // Если еды достаточно, то корова даёт молоко раз в 20 сек;
+            SetSatietyForProduction<Chicken>(10); // 1 единицы пшеницы хватает на 30 сек курице
+            SetSatietyForProduction<Cow>(20); // 1 единицы пшеницы хватает на 20 сек корове;
         }
 
         public void SetSatietyForProduction<T>(int price) where T : IFeedable

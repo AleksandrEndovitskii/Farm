@@ -3,9 +3,6 @@ using Managers;
 
 namespace GameObjects
 {
-    /*
-        • 1 единицы пшеницы хватает на 20 сек корове;
-     */
     public class Cow : IBuyable, IPlaceable, IFeedable, IFuelRequiringProducer
     {
         public int HaveFuelForSecondsCount { get; }
