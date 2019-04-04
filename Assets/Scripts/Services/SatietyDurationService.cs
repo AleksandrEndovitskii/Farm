@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameObjects;
 using GameObjects.Utils;
 using Utils;
 
@@ -12,7 +13,8 @@ namespace Services
 
         public void Initialize()
         {
-
+            SetSatietyForProduction<Chicken>(10); // Если еды достаточно, то курица несёт одно яйцо за 10 сек
+            SetSatietyForProduction<Cow>(20); // Если еды достаточно, то корова даёт молоко раз в 20 сек;
         }
 
         public void SetSatietyForProduction<T>(int price) where T : IFeedable
