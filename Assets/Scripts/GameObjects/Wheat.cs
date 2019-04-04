@@ -11,10 +11,8 @@ namespace GameObjects
     {
         public int WillProduceAfterSecondsCount { get; }
 
-        public Wheat(int willProduceAfterSecondsCount)
+        public Wheat()
         {
-            WillProduceAfterSecondsCount = willProduceAfterSecondsCount;
-
             GameManager.Instance.TimeManager.SecondPassed += TimeManagerOnSecondPassed;
         }
 

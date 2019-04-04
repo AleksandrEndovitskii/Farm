@@ -12,11 +12,8 @@ namespace GameObjects
         public int HaveFuelForSecondsCount { get; }
         public int WillProduceAfterSecondsCount { get; }
 
-        public Cow(int haveFuelForSecondsCount, int willProduceAfterSecondsCount)
+        public Cow()
         {
-            HaveFuelForSecondsCount = haveFuelForSecondsCount;
-            WillProduceAfterSecondsCount = willProduceAfterSecondsCount;
-
             GameManager.Instance.TimeManager.SecondPassed += TimeManagerOnSecondPassed;
         }
 
