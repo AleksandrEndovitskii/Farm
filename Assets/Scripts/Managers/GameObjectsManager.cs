@@ -15,7 +15,7 @@ namespace Managers
     public class GameObjectsManager : MonoBehaviour, IInitializable
     {
         [SerializeField]
-        private Canvas Canvas;
+        private Canvas canvas;
 
         [SerializeField]
         private Field FieldPrefab;
@@ -33,7 +33,7 @@ namespace Managers
 
         public void Initialize()
         {
-            _fieldInstance = Instantiate(FieldPrefab, Canvas.transform);
+            _fieldInstance = Instantiate(FieldPrefab, canvas.transform);
 
             for (var i = 0; i < FieldHeight; i++)
             {
