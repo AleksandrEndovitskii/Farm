@@ -37,7 +37,7 @@ namespace GameObjects
         {
             get
             {
-                var progress = (float)ProductionDuration / (float)ProductionDuration - (float)WillProduceAfterSecondsCount;
+                var progress = ((float)ProductionDuration - (float)WillProduceAfterSecondsCount) / (float)ProductionDuration;
 
                 return progress;
             }
