@@ -23,6 +23,13 @@ namespace Managers
         public void Initialize()
         {
             _userInterfaceInstance = Instantiate(userInterfacePrefab);
+            _userInterfaceInstance.gameObject.transform.SetParent(canvas.gameObject.transform);
+            _userInterfaceInstance.gameObject.transform.SetAsFirstSibling();
+            _userInterfaceInstance.gameObject.GetComponent<RectTransform>().SetHeight(canvas.gameObject.GetComponent<RectTransform>().GetHeight());
+            _userInterfaceInstance.gameObject.GetComponent<RectTransform>().SetWidth(canvas.gameObject.GetComponent<RectTransform>().GetWidth());
+            _userInterfaceInstance.gameObject.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+
+            _userInterfaceInstance.Initialize();
         }
     }
 }
