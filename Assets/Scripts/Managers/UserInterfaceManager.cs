@@ -12,9 +12,17 @@ namespace Managers
 {
     public class UserInterfaceManager : MonoBehaviour, IInitializable
     {
+        [SerializeField]
+        private Canvas canvas;
+
+        [SerializeField]
+        private UserInterface.UserInterface userInterfacePrefab;
+
+        private UserInterface.UserInterface _userInterfaceInstance;
+
         public void Initialize()
         {
-            //
+            _userInterfaceInstance = Instantiate(userInterfacePrefab);
         }
     }
 }

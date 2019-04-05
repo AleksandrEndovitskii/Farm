@@ -59,6 +59,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c977018c2044754098c3da0cb689b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  userInterfacePrefab: {fileID: 5012328587244669908, guid: 83611d657993c1741b9e35e911d5f8f6,
+    type: 3}
 --- !u!114 &7823414785534733920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771a43a08543412408e821911f895a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 0}
+  canvas: {fileID: 0}
   FieldPrefab: {fileID: 5768950217066276443, guid: fa386b8132c2ab0458771e09c2f805ea,
     type: 3}
   CellPrefab: {fileID: 7035306735799681804, guid: ecb624349be0bbc48a152958dd063a19,
