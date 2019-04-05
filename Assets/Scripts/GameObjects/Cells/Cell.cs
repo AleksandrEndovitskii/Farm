@@ -3,6 +3,7 @@ using GameObjects.Utils;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace GameObjects.Cells
 {
@@ -13,10 +14,13 @@ namespace GameObjects.Cells
           корова;
           либо клетка может быть пустой;
      */
-    public class Cell : MonoBehaviour
+    public class Cell : MonoBehaviour, IInitializable
     {
         [SerializeField]
-        private Image ContentImage;
+        private Image contentImage;
+
+        [SerializeField]
+        private Scrollbar progressBar;
 
         private IPlaceable _content;
         private IPlaceable Content
@@ -31,16 +35,30 @@ namespace GameObjects.Cells
 
                 if (_content == null)
                 {
-                    ContentImage.sprite = null;
+                    contentImage.sprite = null;
                 }
                 else
                 {
-                    ContentImage.sprite = GameManager.Instance.ImageManager.GetImage(_content.GetType().Name);
+                    contentImage.sprite = GameManager.Instance.ImageManager.GetImage(_content.GetType().Name);
+
+                    var producer = _content as AProducer;
+                    if (producer != null)
+                    {
+                        producer.ProgressChanged += ProgressChanged;
+                    }
                 }
+
+                progressBar.gameObject.SetActive(_content != null);
             }
         }
 
         private static System.Random _random = new System.Random();
+
+        public void Initialize()
+        {
+            Content = null;
+            ProgressChanged(0);
+        }
 
         public void Place(IPlaceable placeable)
         {
@@ -49,7 +67,7 @@ namespace GameObjects.Cells
 
         public void OnClick()
         {
-            var randomValue = _random.Next(0, 3);
+            var randomValue = _random.Next(0, 1);
 
             IPlaceable placeable = null;
 
@@ -73,6 +91,11 @@ namespace GameObjects.Cells
             {
                 Place(placeable);
             }
+        }
+
+        private void ProgressChanged(float value)
+        {
+            progressBar.size = value;
         }
     }
 }

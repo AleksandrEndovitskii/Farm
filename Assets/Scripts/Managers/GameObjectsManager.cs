@@ -40,6 +40,7 @@ namespace Managers
                 for (var j = 0; j < FieldWidth; j++)
                 {
                     var cellInstance = Instantiate(CellPrefab, _fieldInstance.transform);
+                    cellInstance.Initialize();
                     _cellInstances.Add(cellInstance);
                 } 
             }
