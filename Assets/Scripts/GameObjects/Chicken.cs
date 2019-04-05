@@ -1,20 +1,14 @@
-﻿using System;
-using GameObjects.Utils;
+﻿using GameObjects.Utils;
 using Managers;
-using UnityEngine;
 
 namespace GameObjects
 {
-    public class Chicken : IBuyable, IPlaceable, IFeedable, IFuelRequiringProducer
+    public class Chicken : AFuelRequiringProducer, IBuyable, IFeedable, IPlaceable
     {
-        public Action ProductionIsReady = delegate { };
-
-        public int HaveFuelForSecondsCount { get; private set; }
-        public int WillProduceAfterSecondsCount { get; private set; }
-
-        public Chicken()
+        public override void ResetWillProduceAfterSecondsCount()
         {
-            GameManager.Instance.TimeManager.SecondPassed += TimeManagerOnSecondPassed;
+            WillProduceAfterSecondsCount = GameManager.Instance.ProductionDurationDictionaryService
+                .GetProductionDurationForProducer<Chicken>();
         }
 
         public void Feed(IFood food)
@@ -22,25 +16,6 @@ namespace GameObjects
             if (food is Wheat)
             {
                 HaveFuelForSecondsCount += GameManager.Instance.SatietyDurationDictionaryService.GetSatietyForProduction<Chicken>();
-            }
-        }
-
-        private void TimeManagerOnSecondPassed()
-        {
-            if (HaveFuelForSecondsCount > 0)
-            {
-                WillProduceAfterSecondsCount--;
-                HaveFuelForSecondsCount--; 
-            }
-
-            if (WillProduceAfterSecondsCount == 0)
-            {
-                WillProduceAfterSecondsCount =
-                    GameManager.Instance.ProductionDurationDictionaryService.GetProductionDurationForProducer<Chicken>();
-
-                ProductionIsReady.Invoke();
-
-                Debug.Log(string.Format("ProductionIsReady {0}",this.GetType().Name));
             }
         }
     }
