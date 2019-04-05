@@ -63,7 +63,6 @@ namespace Managers
 
         public void Initialize()
         {
-            UserInterfaceManager.Initialize();
             GameObjectsManager.Initialize();
             ImageManager.Initialize();
             TimeManager.Initialize();
@@ -72,7 +71,7 @@ namespace Managers
             ConfigurationService.Initialize();
             buyPriceDictionaryService = new BuyPriceDictionaryService();
             buyPriceDictionaryService.Initialize();
-            //before trade need to know a price
+            // before trade need to know a price
             TradeService = new TradeService();
             TradeService.Initialize();
             MoneyService = new MoneyService();
@@ -81,6 +80,8 @@ namespace Managers
             ProductionDurationDictionaryService.Initialize();
             SatietyDurationDictionaryService = new SatietyDurationDictionaryService();
             SatietyDurationDictionaryService.Initialize();
+            // before visualize money amount need to know a money amount
+            UserInterfaceManager.Initialize();
         }
     }
 }
