@@ -5,17 +5,50 @@ using UnityEngine;
 
 namespace GameObjects
 {
-    public abstract class AProducer : IProducer
+    public abstract class AProducer : IProducer, IProgressive
     {
+        public Action<float> ProgressChanged = delegate { };
         public Action ProductionIsReady = delegate { };
+        public Action WillProduceAfterSecondsCountChanged = delegate { };
 
-        public int WillProduceAfterSecondsCount { get; protected set; }
+        private int _willProduceAfterSecondsCount;
+        public int WillProduceAfterSecondsCount
+        {
+            get
+            {
+                return _willProduceAfterSecondsCount;
+            }
+            protected set
+            {
+                if (_willProduceAfterSecondsCount == value)
+                {
+                    return;
+                }
+
+                _willProduceAfterSecondsCount = value;
+
+                WillProduceAfterSecondsCountChanged.Invoke();
+            }
+        }
+
+        public abstract int ProductionDuration { get; }
+
+        public float Progress
+        {
+            get
+            {
+                var progress = (float)ProductionDuration / (float)ProductionDuration - (float)WillProduceAfterSecondsCount;
+
+                return progress;
+            }
+        }
 
         public AProducer()
         {
-            ResetWillProduceAfterSecondsCount();
-
             GameManager.Instance.TimeManager.SecondPassed += TimeManagerOnSecondPassed;
+            WillProduceAfterSecondsCountChanged += OnWillProduceAfterSecondsCountChanged;
+
+            ResetWillProduceAfterSecondsCount();
         }
 
         public abstract void ResetWillProduceAfterSecondsCount();
@@ -37,6 +70,11 @@ namespace GameObjects
         private void TimeManagerOnSecondPassed()
         {
             TryProduceProduct();
+        }
+
+        private void OnWillProduceAfterSecondsCountChanged()
+        {
+            ProgressChanged.Invoke(Progress);
         }
     }
 }

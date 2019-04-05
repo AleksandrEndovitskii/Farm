@@ -5,6 +5,15 @@ namespace GameObjects
 {
     public class Chicken : AFuelRequiringProducer, IBuyable, IFeedable, IPlaceable
     {
+        public override int ProductionDuration
+        {
+            get
+            {
+                return GameManager.Instance.ProductionDurationDictionaryService
+                    .GetProductionDurationForProducer<Chicken>();
+            }
+        }
+
         public override void ResetWillProduceAfterSecondsCount()
         {
             WillProduceAfterSecondsCount = GameManager.Instance.ProductionDurationDictionaryService
