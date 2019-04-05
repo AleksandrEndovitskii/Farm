@@ -20,6 +20,8 @@ namespace Managers
             {
                 yield return new WaitForSeconds(1);
 
+                Debug.Log("Second is passed.");
+
                 SecondPassed.Invoke();
             }
         }

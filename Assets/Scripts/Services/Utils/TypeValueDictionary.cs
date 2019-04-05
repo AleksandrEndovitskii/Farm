@@ -17,7 +17,7 @@ namespace Services.Utils
         {
             if (_typeValue.All(x => x.Key != typeof(T)))
             {
-                throw new ArgumentOutOfRangeException(string.Format("No value was specified for {0}", typeof(T).Name));
+                throw new ArgumentOutOfRangeException(typeof(T).Name, string.Format("No value was specified for {0}.", typeof(T).Name));
             }
 
             var keyValuePair = _typeValue.First(x => x.Key == typeof(T));
