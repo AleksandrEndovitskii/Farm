@@ -18,7 +18,7 @@ namespace GameObjects
         public override void ResetWillProduceAfterSecondsCount()
         {
             WillProduceAfterSecondsCount = GameManager.Instance.ProductionDurationDictionaryService
-                .GetProductionDurationForProducer<Cow>();
+                .GetProductionDurationForProducer<Wheat>();
         }
     }
 }
