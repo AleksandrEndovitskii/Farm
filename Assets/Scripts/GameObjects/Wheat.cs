@@ -4,7 +4,7 @@ using Managers;
 namespace GameObjects
 {
     // Пшеницей можно покормить курицу или корову;
-    public class Wheat : AProducer, IBuyable, IPlaceable, IFood
+    public class Wheat : AProducer, IBuyable, IPlaceable, IFood, IProduction
     {
         public override int ProductionDuration
         {

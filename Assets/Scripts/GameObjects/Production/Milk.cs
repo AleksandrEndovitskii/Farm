@@ -2,7 +2,7 @@
 
 namespace GameObjects.Production
 {
-    public class Milk : ISellable
+    public class Milk : ISellable, IProduction
     {
         public int SellPrice { get; }
     }
