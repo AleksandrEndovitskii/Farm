@@ -41,6 +41,8 @@ namespace Managers
 
         public SatietyDurationDictionaryService SatietyDurationDictionaryService;
 
+        public InventoryService InventoryService;
+
         private void Awake()
         {
             if (Instance == null)
@@ -81,6 +83,9 @@ namespace Managers
             SatietyDurationDictionaryService = new SatietyDurationDictionaryService();
             SatietyDurationDictionaryService.Initialize();
             // before visualize money amount need to know a money amount
+            InventoryService = new InventoryService();
+            InventoryService.Initialize();
+            // before visualize inventory items amount need to know a inventory items amount
             UserInterfaceManager.Initialize();
         }
     }
