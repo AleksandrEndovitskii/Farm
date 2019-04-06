@@ -1,4 +1,6 @@
-﻿using Managers;
+﻿using System;
+using GameObjects;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -14,6 +16,7 @@ namespace UserInterface
         private Counter counterPrefab;
 
         private Counter _moneyCounterInstance;
+        private Counter _wheatCounterInstance;
 
         public void Initialize()
         {
@@ -22,11 +25,22 @@ namespace UserInterface
             _moneyCounterInstance.captionTextMeshProText.text = "MoneyAmount: ";
             GameManager.Instance.MoneyService.MoneyAmountChanged += MoneyAmountChanged;
             MoneyAmountChanged(GameManager.Instance.MoneyService.MoneyAmount);
+
+            _wheatCounterInstance = Instantiate(counterPrefab);
+            _wheatCounterInstance.gameObject.transform.SetParent(countersContainer.gameObject.transform);
+            _wheatCounterInstance.captionTextMeshProText.text = "WheatAmount: ";
+            GameManager.Instance.InventoryService.InventoryItemAmountChanged += InventoryItemAmountChanged;
+            InventoryItemAmountChanged(typeof(Wheat), GameManager.Instance.InventoryService.GetCount<Wheat>());
         }
 
         private void MoneyAmountChanged(int value)
         {
             _moneyCounterInstance.valueTextMeshProText.text = value.ToString();
+        }
+
+        private void InventoryItemAmountChanged(Type type, int amount)
+        {
+            _moneyCounterInstance.valueTextMeshProText.text = amount.ToString();
         }
     }
 }
