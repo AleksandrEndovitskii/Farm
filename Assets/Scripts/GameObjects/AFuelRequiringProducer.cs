@@ -2,7 +2,7 @@
 
 namespace GameObjects
 {
-    public abstract class AFuelRequiringProducer : AProducer, IFuelRequiringProducer
+    public abstract class AFuelRequiringProducer<T> : AProducer<T>, IFuelRequiringProducer where T : IProduction
     {
         public int HaveFuelForSecondsCount { get; protected set; }
 

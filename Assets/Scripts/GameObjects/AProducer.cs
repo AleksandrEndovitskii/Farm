@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace GameObjects
 {
-    public abstract class AProducer : IProducer, IProgressive
+    public abstract class AProducer<T> : IProducer<T>, IProgressive where T : IProduction
     {
         public Action<float> ProgressChanged = delegate { };
-        public Action ProductionIsReady = delegate { };
+        public Action<T> ProductionIsReady = delegate { };
         public Action WillProduceAfterSecondsCountChanged = delegate { };
 
         private int _willProduceAfterSecondsCount;
@@ -63,7 +63,9 @@ namespace GameObjects
 
                 Debug.Log(string.Format("Production {0} is ready.", this.GetType().Name));
 
-                ProductionIsReady.Invoke();
+                var production = default(T);
+
+                ProductionIsReady.Invoke(production);
             }
         }
 

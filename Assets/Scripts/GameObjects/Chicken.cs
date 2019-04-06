@@ -1,23 +1,24 @@
-﻿using GameObjects.Utils;
+﻿using GameObjects.Production;
+using GameObjects.Utils;
 using Managers;
 
 namespace GameObjects
 {
-    public class Chicken : AFuelRequiringProducer, IBuyable, IFeedable, IPlaceable
+    public class Chicken : AFuelRequiringProducer<Egg>, IBuyable, IFeedable, IPlaceable
     {
         public override int ProductionDuration
         {
             get
             {
                 return GameManager.Instance.ProductionDurationDictionaryService
-                    .GetProductionDurationForProducer<Chicken>();
+                    .GetProductionDuration<Egg>();
             }
         }
 
         public override void ResetWillProduceAfterSecondsCount()
         {
             WillProduceAfterSecondsCount = GameManager.Instance.ProductionDurationDictionaryService
-                .GetProductionDurationForProducer<Chicken>();
+                .GetProductionDuration<Egg>();
         }
 
         public void Feed(IFood food)
