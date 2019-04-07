@@ -1,5 +1,6 @@
 ﻿using System;
 using GameObjects;
+using GameObjects.Production;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,30 +18,78 @@ namespace UserInterface
 
         private Counter _moneyCounterInstance;
         private Counter _wheatCounterInstance;
+        private Counter _milkCounterInstance;
+        private Counter _eggCounterInstance;
 
         public void Initialize()
         {
-            _moneyCounterInstance = Instantiate(counterPrefab);
-            _moneyCounterInstance.gameObject.transform.SetParent(countersContainer.gameObject.transform);
-            _moneyCounterInstance.captionTextMeshProText.text = "MoneyAmount: ";
-            GameManager.Instance.MoneyService.MoneyAmountChanged += MoneyAmountChanged;
-            MoneyAmountChanged(GameManager.Instance.MoneyService.MoneyAmount);
+            _moneyCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+                "MoneyAmount: ", GameManager.Instance.MoneyService.MoneyAmount);
+            GameManager.Instance.MoneyService.MoneyAmountChanged += (i) =>
+            {
+                _moneyCounterInstance.valueTextMeshProText.text = i.ToString();
+            };
 
-            _wheatCounterInstance = Instantiate(counterPrefab);
-            _wheatCounterInstance.gameObject.transform.SetParent(countersContainer.gameObject.transform);
-            _wheatCounterInstance.captionTextMeshProText.text = "WheatAmount: ";
-            GameManager.Instance.InventoryService.InventoryItemAmountChanged += InventoryItemAmountChanged;
-            InventoryItemAmountChanged(typeof(Wheat), GameManager.Instance.InventoryService.GetCount<Wheat>());
+            _wheatCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+                "WheatAmount: ", GameManager.Instance.InventoryService.GetCount<Wheat>());
+            GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
+            {
+                if (type == typeof(Wheat))
+                {
+                    _wheatCounterInstance.valueTextMeshProText.text = i.ToString();
+                }
+            };
+            _milkCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+                "MilkAmount: ", GameManager.Instance.InventoryService.GetCount<Milk>());
+            GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
+            {
+                if (type == typeof(Milk))
+                {
+                    _milkCounterInstance.valueTextMeshProText.text = i.ToString();
+                }
+            };
+            _eggCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+                "EggAmount: ", GameManager.Instance.InventoryService.GetCount<Egg>());
+            GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
+            {
+                if (type == typeof(Egg))
+                {
+                    _eggCounterInstance.valueTextMeshProText.text = i.ToString();
+                }
+            };
         }
 
-        private void MoneyAmountChanged(int value)
+        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, int defaultValue)
         {
-            _moneyCounterInstance.valueTextMeshProText.text = value.ToString();
+            var instance = Instantiate(counterPrefab);
+            instance.gameObject.transform.SetParent(parent);
+            instance.captionTextMeshProText.text = caption;
+            instance.valueTextMeshProText.text = defaultValue.ToString();
+            return instance;
         }
 
-        private void InventoryItemAmountChanged(Type type, int amount)
+        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, int defaultValue, Action<int> action)
         {
-            _wheatCounterInstance.valueTextMeshProText.text = amount.ToString();
+            var instance = InstantiateCounter(counterPrefab, parent, caption, defaultValue);
+            action += (i) =>
+            {
+                instance.valueTextMeshProText.text = i.ToString();
+            };
+            return instance;
+        }
+
+        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, int defaultValue, Type type, Action<Type,int> action)
+        {
+            var instance = InstantiateCounter(counterPrefab, parent, caption, defaultValue);
+            action += (t,i) =>
+            {
+                if (t == type)
+                {
+                    instance.valueTextMeshProText.text = i.ToString(); 
+                }
+            };
+
+            return instance;
         }
     }
 }
