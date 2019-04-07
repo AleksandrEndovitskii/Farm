@@ -43,6 +43,8 @@ namespace Managers
 
         public InventoryService InventoryService;
 
+        public ProducerProductionDictionaryService ProducerProductionDictionaryService;
+
         private void Awake()
         {
             if (Instance == null)
@@ -78,6 +80,9 @@ namespace Managers
             TradeService.Initialize();
             MoneyService = new MoneyService();
             MoneyService.Initialize();
+            ProducerProductionDictionaryService = new ProducerProductionDictionaryService();
+            ProducerProductionDictionaryService.Initialize();
+            //
             ProductionDurationDictionaryService = new ProductionDurationDictionaryService();
             ProductionDurationDictionaryService.Initialize();
             SatietyDurationDictionaryService = new SatietyDurationDictionaryService();
