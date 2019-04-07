@@ -1,5 +1,4 @@
 ﻿using System;
-using GameObjects.Production;
 using GameObjects.Utils;
 using Managers;
 using UnityEngine;
@@ -22,6 +21,14 @@ namespace GameObjects.Cells
 
         [SerializeField]
         private Scrollbar progressBar;
+
+        public bool IsEmpty
+        {
+            get
+            {
+                return _content == null;
+            }
+        }
 
         private IPlaceable _content;
 
@@ -51,47 +58,67 @@ namespace GameObjects.Cells
 
         public void OnClick()
         {
-            var randomValue = _random.Next(0, 1);
-
-            switch (randomValue)
+            if (!IsEmpty) // content is not empty
             {
-                case 0:
-                    BuyAndPlace<Wheat, Wheat>();
-                    break;
-                case 1:
-                    BuyAndPlace<Chicken, Egg>();
-                    break;
-                case 2:
-                    BuyAndPlace<Cow, Milk>();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                TryToCollect();
             }
-        }
-
-        private void BuyAndPlace<T1, T2>() where T1 : AProducer<T2>, IBuyable, IPlaceable, new() where T2 : IProduction, new()
-        {
-            var placeable = GameManager.Instance.TradeService.TryBuy<T1>();
-            if (placeable != null)
+            else // content is empty - try to place content
             {
-                SetContent<T1>(placeable);
-
-                var producer = placeable as T1;
-                if (producer != null)
+                var randomValue = _random.Next(0, 1);
+                switch (randomValue)
                 {
-                    producer.ProgressChanged += ProgressChanged;
-                    producer.ProductionIsReady += ProductionIsReady;
+                    case 0:
+                        BuyAndPlace<Wheat>();
+                        break;
+                    case 1:
+                        BuyAndPlace<Chicken>();
+                        break;
+                    case 2:
+                        BuyAndPlace<Cow>();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
-        private void ProductionIsReady<T>(T production) where T : IProduction
+        private void TryToCollect()
         {
-            var inventoryItem = production as IInventoryItem;
-            if (inventoryItem != null)
+            var progressive = _content as IProgressive;
+            if (progressive == null || // this item dont have any progress
+                !progressive.IsReady) // this item progress do not completed
             {
-                GameManager.Instance.InventoryService.Put(inventoryItem);
+                return;
             }
+
+            var producer = _content as AProducer<Wheat>; // demo implementation
+            if (producer == null || // this item is not a producer
+                producer.Production == null) // this producer do not have any production
+            {
+                return;
+            }
+
+            var production = producer.CollectProduction();
+            var inventoryItem = production as IInventoryItem;
+            if (inventoryItem == null) // this production can not be putted to inventory
+            {
+                return;
+            }
+
+            GameManager.Instance.InventoryService.Put(inventoryItem);
+        }
+
+        private void BuyAndPlace<T1>() where T1 : IPlaceable, IBuyable, IProgressive, new()
+        {
+            var value = GameManager.Instance.TradeService.TryBuy<T1>();
+            if (value == null)
+            {
+                return;
+            }
+
+            SetContent(value);
+
+            value.ProgressChanged += ProgressChanged;
         }
 
         private void ProgressChanged(float value)

@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace GameObjects
 {
-    public abstract class AProducer<T> : IProducer<T>, IProgressive where T : IProduction, new()
+    public abstract class AProducer<T> : IProducer<T>, IProgressive where T : class, IProduction, new()
     {
-        public Action<float> ProgressChanged = delegate { };
+        public Action<float> ProgressChanged { get; set; }
         public Action<T> ProductionIsReady = delegate { };
         public Action WillProduceAfterSecondsCountChanged = delegate { };
 
@@ -31,6 +31,8 @@ namespace GameObjects
             }
         }
 
+        public T Production { get; private set; }
+
         public abstract int ProductionDuration { get; }
 
         public float Progress
@@ -42,9 +44,20 @@ namespace GameObjects
                 return progress;
             }
         }
+        public bool IsReady
+        {
+            get
+            {
+                var result = Progress == 1f;
+
+                return result;
+            }
+        }
 
         public AProducer()
         {
+            ProgressChanged = delegate { };
+
             GameManager.Instance.TimeManager.SecondPassed += TimeManagerOnSecondPassed;
             WillProduceAfterSecondsCountChanged += OnWillProduceAfterSecondsCountChanged;
 
@@ -55,18 +68,29 @@ namespace GameObjects
 
         public virtual void TryProduceProduct()
         {
+            if (Production != null) // already have production - cant produce more
+            {
+                return;
+            }
+
             WillProduceAfterSecondsCount--;
 
             if (WillProduceAfterSecondsCount == 0)
             {
-                ResetWillProduceAfterSecondsCount();
-
                 Debug.Log(string.Format("Production {0} is ready.", this.GetType().Name));
+                
+                Production = new T();
 
-                var production = new T();
-
-                ProductionIsReady.Invoke(production);
+                ProductionIsReady.Invoke(Production);
             }
+        }
+
+        public T CollectProduction()
+        {
+            var production = Production;
+            Production = null;
+            ResetWillProduceAfterSecondsCount();
+            return production;
         }
 
         private void TimeManagerOnSecondPassed()
