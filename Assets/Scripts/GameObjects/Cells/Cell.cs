@@ -1,4 +1,5 @@
 ﻿using System;
+using GameObjects.Production;
 using GameObjects.Utils;
 using Managers;
 using UnityEngine;
@@ -23,73 +24,73 @@ namespace GameObjects.Cells
         private Scrollbar progressBar;
 
         private IPlaceable _content;
-        private IPlaceable Content
-        {
-            get
-            {
-                return _content;
-            }
-            set
-            {
-                _content = value;
-
-                if (_content == null)
-                {
-                    contentImage.sprite = null;
-                }
-                else
-                {
-                    contentImage.sprite = GameManager.Instance.ImageManager.GetImage(_content.GetType().Name);
-
-                    var producer = _content as AProducer;
-                    if (producer != null)
-                    {
-                        producer.ProgressChanged += ProgressChanged;
-                    }
-                }
-
-                progressBar.gameObject.SetActive(_content != null);
-            }
-        }
 
         private static System.Random _random = new System.Random();
 
         public void Initialize()
         {
-            Content = null;
+            SetContent<IPlaceable>(null);
             ProgressChanged(0);
         }
 
-        public void Place(IPlaceable placeable)
+        public void SetContent<T>(T value) where T : IPlaceable
         {
-            Content = placeable;
+            _content = value;
+
+            if (_content == null)
+            {
+                contentImage.sprite = null;
+            }
+            else
+            {
+                contentImage.sprite = GameManager.Instance.ImageManager.GetImage(_content.GetType().Name);
+            }
+
+            progressBar.gameObject.SetActive(_content != null);
         }
 
         public void OnClick()
         {
             var randomValue = _random.Next(0, 1);
 
-            IPlaceable placeable = null;
-
             switch (randomValue)
             {
                 case 0:
-                    placeable = GameManager.Instance.TradeService.TryBuy<Wheat>();
+                    BuyAndPlace<Wheat, Wheat>();
                     break;
                 case 1:
-                    placeable = GameManager.Instance.TradeService.TryBuy<Chicken>();
+                    BuyAndPlace<Chicken, Egg>();
                     break;
                 case 2:
-                    placeable = GameManager.Instance.TradeService.TryBuy<Cow>();
+                    BuyAndPlace<Cow, Milk>();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
 
-
+        private void BuyAndPlace<T1, T2>() where T1 : AProducer<T2>, IBuyable, IPlaceable, new() where T2 : IProduction, new()
+        {
+            var placeable = GameManager.Instance.TradeService.TryBuy<T1>();
             if (placeable != null)
             {
-                Place(placeable);
+                SetContent<T1>(placeable);
+
+                var producer = placeable as T1;
+                if (producer != null)
+                {
+                    producer.ProgressChanged += ProgressChanged;
+                    producer.ProductionIsReady += ProductionIsReady;
+                }
+            }
+        }
+
+        private void ProductionIsReady<T>(T production) where T : IProduction
+        {
+            var inventoryItem = production as IInventoryItem;
+            if (inventoryItem != null)
+            {
+                GameManager.Instance.InventoryService.Put(inventoryItem);
             }
         }
 
