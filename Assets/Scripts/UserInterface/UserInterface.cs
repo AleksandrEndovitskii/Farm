@@ -40,7 +40,7 @@ namespace UserInterface
 
         private void InventoryItemAmountChanged(Type type, int amount)
         {
-            _moneyCounterInstance.valueTextMeshProText.text = amount.ToString();
+            _wheatCounterInstance.valueTextMeshProText.text = amount.ToString();
         }
     }
 }
