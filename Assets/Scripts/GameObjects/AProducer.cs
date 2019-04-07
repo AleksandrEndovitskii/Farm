@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GameObjects
 {
-    public abstract class AProducer<T> : IProducer<T>, IProgressive where T : IProduction
+    public abstract class AProducer<T> : IProducer<T>, IProgressive where T : IProduction, new()
     {
         public Action<float> ProgressChanged = delegate { };
         public Action<T> ProductionIsReady = delegate { };
@@ -63,7 +63,7 @@ namespace GameObjects
 
                 Debug.Log(string.Format("Production {0} is ready.", this.GetType().Name));
 
-                var production = default(T);
+                var production = new T();
 
                 ProductionIsReady.Invoke(production);
             }
