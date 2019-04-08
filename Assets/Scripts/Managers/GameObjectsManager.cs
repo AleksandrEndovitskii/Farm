@@ -41,8 +41,21 @@ namespace Managers
                 {
                     var cellInstance = Instantiate(CellPrefab, _fieldInstance.transform);
                     cellInstance.Initialize();
+                    cellInstance.Clicked += Clicked;
                     _cellInstances.Add(cellInstance);
                 } 
+            }
+        }
+
+        private void Clicked(Cell cell)
+        {
+            if (!cell.IsEmpty) // content is not empty
+            {
+                cell.TryToCollect();
+            }
+            else // content is empty - try to place content
+            {
+                GameManager.Instance.UserInterfaceManager.ShowMenu(cell);
             }
         }
     }

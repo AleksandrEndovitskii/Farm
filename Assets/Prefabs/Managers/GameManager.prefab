@@ -62,6 +62,10 @@ MonoBehaviour:
   canvas: {fileID: 0}
   userInterfacePrefab: {fileID: 5012328587244669908, guid: 83611d657993c1741b9e35e911d5f8f6,
     type: 3}
+  listMenuViewPrefab: {fileID: 6588192290843730353, guid: 37485215eda6beb47b747d67b8963350,
+    type: 3}
+  _buttonViewPrefab: {fileID: 4099108692182432551, guid: 66673b6a984ef794cb530104851b797b,
+    type: 3}
 --- !u!114 &7823414785534733920
 MonoBehaviour:
   m_ObjectHideFlags: 0

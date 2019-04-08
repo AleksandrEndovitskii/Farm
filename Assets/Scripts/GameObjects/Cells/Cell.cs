@@ -16,6 +16,8 @@ namespace GameObjects.Cells
      */
     public class Cell : MonoBehaviour, IInitializable
     {
+        public Action<Cell> Clicked = delegate { };
+
         [SerializeField]
         private Image contentImage;
 
@@ -31,8 +33,6 @@ namespace GameObjects.Cells
         }
 
         private IPlaceable _content;
-
-        private static System.Random _random = new System.Random();
 
         public void Initialize()
         {
@@ -58,31 +58,10 @@ namespace GameObjects.Cells
 
         public void OnClick()
         {
-            if (!IsEmpty) // content is not empty
-            {
-                TryToCollect();
-            }
-            else // content is empty - try to place content
-            {
-                var randomValue = _random.Next(0, 1);
-                switch (randomValue)
-                {
-                    case 0:
-                        BuyAndPlace<Wheat>();
-                        break;
-                    case 1:
-                        BuyAndPlace<Chicken>();
-                        break;
-                    case 2:
-                        BuyAndPlace<Cow>();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
+            Clicked.Invoke(this);
         }
 
-        private void TryToCollect()
+        public void TryToCollect()
         {
             var progressive = _content as IProgressive;
             if (progressive == null || // this item dont have any progress
@@ -108,7 +87,7 @@ namespace GameObjects.Cells
             GameManager.Instance.InventoryService.Put(inventoryItem);
         }
 
-        private void BuyAndPlace<T1>() where T1 : IPlaceable, IBuyable, IProgressive, new()
+        public void BuyAndPlace<T1>() where T1 : IPlaceable, IBuyable, IProgressive, new()
         {
             var value = GameManager.Instance.TradeService.TryBuy<T1>();
             if (value == null)
