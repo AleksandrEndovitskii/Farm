@@ -9,18 +9,18 @@ namespace Services
     {
         public void Initialize()
         {
-            SetSatietyForProduction<Chicken>(10); // 1 единицы пшеницы хватает на 30 сек курице
-            SetSatietyForProduction<Cow>(20); // 1 единицы пшеницы хватает на 20 сек корове;
+            SetSatietyForProduction<Chicken, Wheat>(10); // 1 единицы пшеницы хватает на 30 сек курице
+            SetSatietyForProduction<Cow, Wheat>(20); // 1 единицы пшеницы хватает на 20 сек корове;
         }
 
-        public void SetSatietyForProduction<T>(int value) where T : IFeedable
+        public void SetSatietyForProduction<T1, T2>(int value) where T1 : IFeedable<T2> where T2 : IFood
         {
-            base.SetValueForType<T>(value);
+            base.SetValueForType<T1>(value);
         }
 
-        public int GetSatietyForProduction<T>() where T : IFeedable
+        public int GetSatietyForProduction<T1, T2>() where T1 : IFeedable<T2> where T2 : IFood
         {
-            return base.GetValueForType<T>();
+            return base.GetValueForType<T1>();
         }
     }
 }

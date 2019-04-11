@@ -1,7 +1,7 @@
 ﻿namespace GameObjects.Utils
 {
-    public interface IFeedable
+    public interface IFeedable<T> where T : IFood
     {
-        void Feed(IFood food);
+        void Feed(T food);
     }
 }

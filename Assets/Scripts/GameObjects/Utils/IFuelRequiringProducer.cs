@@ -1,7 +1,9 @@
 ﻿namespace GameObjects.Utils
 {
-    public interface IFuelRequiringProducer<T> : IProducer<T> where T : class, IProduction, new()
+    public interface IFuelRequiringProducer<T> where T : IFood
     {
         int HaveFuelForSecondsCount { get; }
+
+        void Feed(T food);
     }
 }

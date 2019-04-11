@@ -20,6 +20,13 @@ namespace Services
 
         public void Put(IInventoryItem inventoryItem)
         {
+            if (inventoryItem == null)
+            {
+                Debug.LogWarning("Trying to add to inventory null.");
+
+                return;
+            }
+
             _inventoryItems.Add(inventoryItem);
 
             Debug.Log(string.Format("Inventory item({0}) was putted in to inventory.", (inventoryItem.GetType().Name)));

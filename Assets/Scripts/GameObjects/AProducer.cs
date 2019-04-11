@@ -33,7 +33,14 @@ namespace GameObjects
 
         public T Production { get; private set; }
 
-        public abstract int ProductionDuration { get; }
+        public int ProductionDuration
+        {
+            get
+            {
+                return GameManager.Instance.ProductionDurationDictionaryService
+                    .GetProductionDuration<T>();
+            }
+        }
 
         public float Progress
         {
@@ -64,7 +71,11 @@ namespace GameObjects
             ResetWillProduceAfterSecondsCount();
         }
 
-        public abstract void ResetWillProduceAfterSecondsCount();
+        public void ResetWillProduceAfterSecondsCount()
+        {
+            WillProduceAfterSecondsCount = GameManager.Instance.ProductionDurationDictionaryService
+                .GetProductionDuration<T>();
+        }
 
         public virtual void TryProduceProduct()
         {
