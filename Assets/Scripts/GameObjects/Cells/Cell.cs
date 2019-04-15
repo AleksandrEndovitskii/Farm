@@ -32,6 +32,14 @@ namespace GameObjects.Cells
             }
         }
 
+        public IPlaceable Content
+        {
+            get
+            {
+                return _content;
+            }
+        }
+
         private IPlaceable _content;
 
         public void Initialize()
@@ -59,32 +67,6 @@ namespace GameObjects.Cells
         public void OnClick()
         {
             Clicked.Invoke(this);
-        }
-
-        public void TryToCollect()
-        {
-            var progressive = _content as IProgressive;
-            if (progressive == null || // this item dont have any progress
-                !progressive.IsReady) // this item progress do not completed
-            {
-                return;
-            }
-
-            var producer = _content as AProducer<Wheat>; // demo implementation
-            if (producer == null || // this item is not a producer
-                producer.Production == null) // this producer do not have any production
-            {
-                return;
-            }
-
-            var production = producer.CollectProduction();
-            var inventoryItem = production as IInventoryItem;
-            if (inventoryItem == null) // this production can not be putted to inventory
-            {
-                return;
-            }
-
-            GameManager.Instance.InventoryService.Put(inventoryItem);
         }
 
         public void BuyAndPlace<T1>() where T1 : IPlaceable, IBuyable, IProgressive, new()
