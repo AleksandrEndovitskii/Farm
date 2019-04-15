@@ -1,10 +1,10 @@
 ﻿namespace GameObjects.Utils
 {
-    public interface IProducer<T> where T : IProduction
+    public interface IProducer
     {
         int WillProduceAfterSecondsCount { get; }
-        T Production { get; }
+        IProduction Production { get; }
 
-        T CollectProduction();
+        IProduction TryCollectProduction();
     }
 }

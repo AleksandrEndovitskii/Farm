@@ -1,9 +1,10 @@
 ﻿using GameObjects.Utils;
 using Managers;
+using UnityEngine;
 
 namespace GameObjects
 {
-    public abstract class AFuelRequiringProducer<T1, T2> : AProducer<T1>, IFuelRequiringProducer<T2>, IFeedable<T2> where T1 : class, IProduction, new() where T2 : IFood
+    public abstract class AFuelRequiringProducer<T1, T2> : AProducer<T1>, IFeedable where T1 : class, IProduction, new() where T2 : IFood
     {
         public int HaveFuelForSecondsCount { get; protected set; }
 
@@ -17,9 +18,13 @@ namespace GameObjects
             }
         }
 
-        public void Feed(T2 food)
+        public void Feed(IFood food)
         {
-            HaveFuelForSecondsCount += GameManager.Instance.SatietyDurationDictionaryService.GetSatietyForProduction<T1, T2>();
+            Debug.Log(string.Format("Feeding a {0} with {1}", this.GetType().Name, food.GetType().Name));
+
+            HaveFuelForSecondsCount +=
+                GameManager.Instance.SatietyDurationDictionaryService.GetSatietyForProduction(this.GetType(),
+                    food.GetType());
         }
     }
 }

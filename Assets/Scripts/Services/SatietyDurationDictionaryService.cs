@@ -1,11 +1,12 @@
-﻿using GameObjects;
+﻿using System;
+using GameObjects;
 using GameObjects.Utils;
 using Services.Utils;
 using Utils;
 
 namespace Services
 {
-    public class SatietyDurationDictionaryService : TypeValueDictionary, IInitializable
+    public class SatietyDurationDictionaryService : TypeTypeValueDictionary, IInitializable
     {
         public void Initialize()
         {
@@ -13,14 +14,19 @@ namespace Services
             SetSatietyForProduction<Cow, Wheat>(20); // 1 единицы пшеницы хватает на 20 сек корове;
         }
 
-        public void SetSatietyForProduction<T1, T2>(int value) where T1 : IFeedable<T2> where T2 : IFood
+        public void SetSatietyForProduction<T1, T2>(int value) where T1 : IFeedable where T2 : IFood
         {
-            base.SetValueForType<T1>(value);
+            base.SetValueForType<T1, T2>(value);
         }
 
-        public int GetSatietyForProduction<T1, T2>() where T1 : IFeedable<T2> where T2 : IFood
+        public int GetSatietyForProduction<T1, T2>() where T1 : IFeedable where T2 : IFood
         {
-            return base.GetValueForType<T1>();
+            return base.GetValueForType<T1, T2>();
+        }
+
+        public int GetSatietyForProduction(Type type1, Type type2)
+        {
+            return base.GetValueForType(type1, type2);
         }
     }
 }

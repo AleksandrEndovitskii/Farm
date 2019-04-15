@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace GameObjects
 {
-    public abstract class AProducer<T> : IProducer<T>, IProgressive where T : class, IProduction, new()
+    public abstract class AProducer<T> : IProducer, IProgressive where T : class, IProduction, new()
     {
         public Action<float> ProgressChanged { get; set; }
-        public Action<T> ProductionIsReady = delegate { };
+        public Action<IProduction> ProductionIsReady = delegate { };
         public Action WillProduceAfterSecondsCountChanged = delegate { };
 
         private int _willProduceAfterSecondsCount;
@@ -31,7 +31,7 @@ namespace GameObjects
             }
         }
 
-        public T Production { get; private set; }
+        public IProduction Production { get; private set; }
 
         public int ProductionDuration
         {
@@ -88,19 +88,22 @@ namespace GameObjects
 
             if (WillProduceAfterSecondsCount == 0)
             {
-                Debug.Log(string.Format("Production {0} is ready.", this.GetType().Name));
-                
                 Production = new T();
+
+                Debug.Log(string.Format("{0} has produced {1}.", this.GetType().Name, Production.GetType().Name));
 
                 ProductionIsReady.Invoke(Production);
             }
         }
 
-        public T CollectProduction()
+        public IProduction TryCollectProduction()
         {
             var production = Production;
             Production = null;
-            ResetWillProduceAfterSecondsCount();
+            if (production != null) // production was gathered and will be given away - need to start new production
+            {
+                ResetWillProduceAfterSecondsCount(); 
+            }
             return production;
         }
 
