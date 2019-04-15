@@ -41,9 +41,13 @@ namespace Services
             if (inventoryItem == null)
             {
                 Debug.LogWarning(string.Format("Inventory do not contain items of specified type - {0}.", typeof(T).Name));
+
+                return null;
             }
 
             Debug.Log(string.Format("Inventory item({0}) was popped from inventory.", (inventoryItem.GetType().Name)));
+
+            InventoryItemAmountChanged.Invoke(inventoryItem.GetType(), _inventoryItems.Count(x => x.GetType() == inventoryItem.GetType()));
 
             return inventoryItem;
         }
