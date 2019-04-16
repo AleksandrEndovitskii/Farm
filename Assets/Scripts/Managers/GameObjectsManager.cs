@@ -21,9 +21,9 @@ namespace Managers
         private Canvas canvas;
 
         [SerializeField]
-        private Field FieldPrefab;
+        private Field _fieldPrefab;
         [SerializeField]
-        private Cell CellPrefab;
+        private Cell _cellPrefab;
 
         private Field _fieldInstance;
         private List<Cell> _cellInstances = new List<Cell>();
@@ -36,13 +36,13 @@ namespace Managers
 
         public void Initialize()
         {
-            _fieldInstance = Instantiate(FieldPrefab, canvas.transform);
+            _fieldInstance = Instantiate(_fieldPrefab, canvas.transform);
 
             for (var i = 0; i < FieldHeight; i++)
             {
                 for (var j = 0; j < FieldWidth; j++)
                 {
-                    var cellInstance = Instantiate(CellPrefab, _fieldInstance.transform);
+                    var cellInstance = Instantiate(_cellPrefab, _fieldInstance.transform);
                     cellInstance.Initialize();
                     cellInstance.Clicked += Clicked;
                     _cellInstances.Add(cellInstance);

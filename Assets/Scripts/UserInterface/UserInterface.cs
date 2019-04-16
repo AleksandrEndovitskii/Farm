@@ -11,7 +11,7 @@ namespace UserInterface
     public class UserInterface : MonoBehaviour, IInitializable
     {
         [SerializeField]
-        private VerticalLayoutGroup countersContainer;
+        private VerticalLayoutGroup _countersContainer;
 
         [SerializeField]
         private Counter counterPrefab;
@@ -23,38 +23,38 @@ namespace UserInterface
 
         public void Initialize()
         {
-            _moneyCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+            _moneyCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
                 "MoneyAmount: ", GameManager.Instance.MoneyService.MoneyAmount);
             GameManager.Instance.MoneyService.MoneyAmountChanged += (i) =>
             {
-                _moneyCounterInstance.valueTextMeshProText.text = i.ToString();
+                _moneyCounterInstance.SetValue(i.ToString());
             };
 
-            _wheatCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+            _wheatCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
                 "WheatAmount: ", GameManager.Instance.InventoryService.GetCount<Wheat>());
             GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
             {
                 if (type == typeof(Wheat))
                 {
-                    _wheatCounterInstance.valueTextMeshProText.text = i.ToString();
+                    _wheatCounterInstance.SetValue(i.ToString());
                 }
             };
-            _milkCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+            _milkCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
                 "MilkAmount: ", GameManager.Instance.InventoryService.GetCount<Milk>());
             GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
             {
                 if (type == typeof(Milk))
                 {
-                    _milkCounterInstance.valueTextMeshProText.text = i.ToString();
+                    _milkCounterInstance.SetValue(i.ToString());
                 }
             };
-            _eggCounterInstance = InstantiateCounter(counterPrefab, countersContainer.gameObject.transform,
+            _eggCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
                 "EggAmount: ", GameManager.Instance.InventoryService.GetCount<Egg>());
             GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
             {
                 if (type == typeof(Egg))
                 {
-                    _eggCounterInstance.valueTextMeshProText.text = i.ToString();
+                    _eggCounterInstance.SetValue(i.ToString());
                 }
             };
         }
@@ -63,8 +63,8 @@ namespace UserInterface
         {
             var instance = Instantiate(counterPrefab);
             instance.gameObject.transform.SetParent(parent);
-            instance.captionTextMeshProText.text = caption;
-            instance.valueTextMeshProText.text = defaultValue.ToString();
+            instance.SetCaption(caption);
+            instance.SetValue(defaultValue.ToString());
             return instance;
         }
 
@@ -73,7 +73,7 @@ namespace UserInterface
             var instance = InstantiateCounter(counterPrefab, parent, caption, defaultValue);
             action += (i) =>
             {
-                instance.valueTextMeshProText.text = i.ToString();
+                instance.SetValue(i.ToString());
             };
             return instance;
         }
@@ -85,7 +85,7 @@ namespace UserInterface
             {
                 if (t == type)
                 {
-                    instance.valueTextMeshProText.text = i.ToString(); 
+                    instance.SetValue(i.ToString()); 
                 }
             };
 

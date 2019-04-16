@@ -59,10 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c977018c2044754098c3da0cb689b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
-  userInterfacePrefab: {fileID: 5012328587244669908, guid: 83611d657993c1741b9e35e911d5f8f6,
+  _canvas: {fileID: 0}
+  _userInterfacePrefab: {fileID: 5012328587244669908, guid: 83611d657993c1741b9e35e911d5f8f6,
     type: 3}
-  listMenuViewPrefab: {fileID: 6588192290843730353, guid: 37485215eda6beb47b747d67b8963350,
+  _listMenuViewPrefab: {fileID: 6588192290843730353, guid: 37485215eda6beb47b747d67b8963350,
     type: 3}
   _buttonViewPrefab: {fileID: 4099108692182432551, guid: 66673b6a984ef794cb530104851b797b,
     type: 3}
@@ -79,9 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  FieldPrefab: {fileID: 5768950217066276443, guid: fa386b8132c2ab0458771e09c2f805ea,
+  _fieldPrefab: {fileID: 5768950217066276443, guid: fa386b8132c2ab0458771e09c2f805ea,
     type: 3}
-  CellPrefab: {fileID: 7035306735799681804, guid: ecb624349be0bbc48a152958dd063a19,
+  _cellPrefab: {fileID: 7035306735799681804, guid: ecb624349be0bbc48a152958dd063a19,
     type: 3}
 --- !u!114 &3588932244043551692
 MonoBehaviour:

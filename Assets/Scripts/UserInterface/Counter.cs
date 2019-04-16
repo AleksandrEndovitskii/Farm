@@ -7,13 +7,23 @@ namespace UserInterface
     public class Counter : MonoBehaviour, IInitializable
     {
         [SerializeField]
-        public TextMeshProUGUI captionTextMeshProText;
+        private TextMeshProUGUI _captionTextMeshProText;
         [SerializeField]
-        public TextMeshProUGUI valueTextMeshProText;
+        private TextMeshProUGUI _valueTextMeshProText;
 
         public void Initialize()
         {
 
+        }
+
+        public void SetCaption(string caption)
+        {
+            _captionTextMeshProText.text = caption;
+        }
+
+        public void SetValue(string value)
+        {
+            _valueTextMeshProText.text = value;
         }
     }
 }

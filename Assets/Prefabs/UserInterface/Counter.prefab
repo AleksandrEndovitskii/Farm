@@ -412,8 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9110c26d8ac3b204f9894abe250379a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  captionTextMeshProText: {fileID: 7974659570796733685}
-  valueTextMeshProText: {fileID: 4795657192275979550}
+  _captionTextMeshProText: {fileID: 7974659570796733685}
+  _valueTextMeshProText: {fileID: 4795657192275979550}
 --- !u!114 &2543521035727066343
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ec0077a40cbfb4b8b755a68d4ac429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countersContainer: {fileID: 5239004005952471362}
+  _countersContainer: {fileID: 5239004005952471362}
   counterPrefab: {fileID: 4716061150027148095, guid: 32f66ceaa928e9648942aaf5ffdf3c57,
     type: 3}
 --- !u!1 &6964602323350264201

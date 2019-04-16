@@ -18,13 +18,13 @@ namespace Managers
     public class UserInterfaceManager : MonoBehaviour, IInitializable
     {
         [SerializeField]
-        private Canvas canvas;
+        private Canvas _canvas;
 
         [SerializeField]
-        private UserInterface.UserInterface userInterfacePrefab;
+        private UserInterface.UserInterface _userInterfacePrefab;
 
         [SerializeField]
-        private ListMenuView listMenuViewPrefab;
+        private ListMenuView _listMenuViewPrefab;
 
         [SerializeField]
         private ButtonView _buttonViewPrefab;
@@ -35,12 +35,12 @@ namespace Managers
 
         public void Initialize()
         {
-            _userInterfaceInstance = InstantiateFullScreenWindow(userInterfacePrefab);
+            _userInterfaceInstance = InstantiateFullScreenWindow(_userInterfacePrefab);
         }
 
         public void ShowMenu(Cell cell)
         {
-            _listMenuViewInstance = InstantiateFullScreenWindow(listMenuViewPrefab, false);
+            _listMenuViewInstance = InstantiateFullScreenWindow(_listMenuViewPrefab, false);
             _listMenuViewInstance.BackgroundImageClicked += view =>
             {
                 Destroy(view.gameObject);
@@ -71,7 +71,7 @@ namespace Managers
         private T InstantiateFullScreenWindow<T>(T prefab, bool asFirstSibling = true) where T : MonoBehaviour, IInitializable
         {
             var instance = Instantiate(prefab);
-            instance.gameObject.transform.SetParent(canvas.gameObject.transform);
+            instance.gameObject.transform.SetParent(_canvas.gameObject.transform);
             if (asFirstSibling)
             {
                 instance.gameObject.transform.SetAsFirstSibling();
@@ -81,9 +81,9 @@ namespace Managers
                 instance.gameObject.transform.SetAsLastSibling();
             }
             instance.gameObject.GetComponent<RectTransform>()
-                .SetHeight(canvas.gameObject.GetComponent<RectTransform>().GetHeight());
+                .SetHeight(_canvas.gameObject.GetComponent<RectTransform>().GetHeight());
             instance.gameObject.GetComponent<RectTransform>()
-                .SetWidth(canvas.gameObject.GetComponent<RectTransform>().GetWidth());
+                .SetWidth(_canvas.gameObject.GetComponent<RectTransform>().GetWidth());
             instance.gameObject.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 
             instance.Initialize();
