@@ -3,7 +3,7 @@ using GameObjects.Utils;
 
 namespace GameObjects
 {
-    public class Chicken : AFuelRequiringProducer<Egg, Wheat>, IBuyable, IPlaceable
+    public class Chicken : AFuelRequiringProducer<Egg>, IBuyable, IPlaceable
     {
 
     }

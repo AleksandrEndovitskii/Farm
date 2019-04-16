@@ -5,11 +5,11 @@ namespace Managers
 {
     public class ImageManager : MonoBehaviour, IInitializable
     {
-        private string _imagesFolderName = "Images";
+        private string _imagesFolderName;
 
         public void Initialize()
         {
-            //
+            _imagesFolderName = "Images";
         }
 
         public Sprite GetImage(string imageName)

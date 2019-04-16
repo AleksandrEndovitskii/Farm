@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GameObjects
 {
-    public abstract class AFuelRequiringProducer<T1, T2> : AProducer<T1>, IFeedable where T1 : class, IProduction, new() where T2 : IFood
+    public abstract class AFuelRequiringProducer<T1> : AProducer<T1>, IFeedable where T1 : class, IProduction, new()
     {
         public int HaveFuelForSecondsCount { get; protected set; }
 

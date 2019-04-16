@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Services.Utils
 {
-    public class TypeTypeDictionary<T1, T2>
+    public class TypeTypeDictionary
     {
         private Dictionary<Type, Type> _typeType = new Dictionary<Type, Type>();
 

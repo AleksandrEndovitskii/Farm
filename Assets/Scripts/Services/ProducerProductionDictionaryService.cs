@@ -6,7 +6,7 @@ using Utils;
 
 namespace Services
 {
-    public class ProducerProductionDictionaryService : TypeTypeDictionary<IProducer, IProduction>, IInitializable
+    public class ProducerProductionDictionaryService : TypeTypeDictionary, IInitializable
     {
         public void Initialize()
         {

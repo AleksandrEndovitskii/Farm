@@ -19,11 +19,6 @@ namespace Services
             base.SetValueForType<T1, T2>(value);
         }
 
-        public int GetSatietyForProduction<T1, T2>() where T1 : IFeedable where T2 : IFood
-        {
-            return base.GetValueForType<T1, T2>();
-        }
-
         public int GetSatietyForProduction(Type type1, Type type2)
         {
             return base.GetValueForType(type1, type2);

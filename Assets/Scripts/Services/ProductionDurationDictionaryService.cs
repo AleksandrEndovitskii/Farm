@@ -17,12 +17,12 @@ namespace Services
 
         public void SetProductionDuration<T>(int value) where T : IProduction
         {
-            base.SetValueForType<T>(value);
+            base.SetValueForType(typeof(T), value);
         }
 
         public int GetProductionDuration<T>() where T : IProduction
         {
-            return base.GetValueForType<T>();
+            return base.GetValueForType(typeof(T));
         }
     }
 }

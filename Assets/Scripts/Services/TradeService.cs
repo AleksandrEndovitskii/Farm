@@ -1,5 +1,4 @@
-﻿using GameObjects;
-using GameObjects.Utils;
+﻿using GameObjects.Utils;
 using Managers;
 using UnityEngine;
 using Utils;
@@ -10,10 +9,7 @@ namespace Services
     {
         public void Initialize()
         {
-            // test data
-            GameManager.Instance.buyPriceDictionaryService.SetBuyPriceForType<Wheat>(10);
-            GameManager.Instance.buyPriceDictionaryService.SetBuyPriceForType<Chicken>(20);
-            GameManager.Instance.buyPriceDictionaryService.SetBuyPriceForType<Cow>(30);
+
         }
 
         public void Sell(ISellable sellable)
@@ -35,7 +31,7 @@ namespace Services
                 Debug.Log(string.Format("Not enough money to purchase {0} for {1} money - you have only {2} money.", typeof(T).Name,
                     price, GameManager.Instance.MoneyService.MoneyAmount));
 
-                return default(T);
+                return default;
             }
 
             GameManager.Instance.MoneyService.MoneyAmount -= price;

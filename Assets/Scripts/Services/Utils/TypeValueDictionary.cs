@@ -8,26 +8,9 @@ namespace Services.Utils
     {
         private Dictionary<Type, int> _typeValue = new Dictionary<Type, int>();
 
-        public void SetValueForType<T>(int value)
-        {
-            _typeValue.Add(typeof(T),value);
-        }
-
         public void SetValueForType(Type type, int value)
         {
             _typeValue.Add(type, value);
-        }
-
-        public int GetValueForType<T>()
-        {
-            if (_typeValue.All(x => x.Key != typeof(T)))
-            {
-                throw new ArgumentOutOfRangeException(typeof(T).Name, string.Format("No value was specified for {0}.", typeof(T).Name));
-            }
-
-            var keyValuePair = _typeValue.First(x => x.Key == typeof(T));
-
-            return keyValuePair.Value;
         }
 
         public int GetValueForType(Type type)
