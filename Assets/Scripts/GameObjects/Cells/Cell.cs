@@ -45,7 +45,7 @@ namespace GameObjects.Cells
         public void Initialize()
         {
             SetContent<IPlaceable>(null);
-            ProgressChanged(0);
+            SetProgressBarValue(0);
         }
 
         public void SetContent<T>(T value) where T : IPlaceable
@@ -69,20 +69,7 @@ namespace GameObjects.Cells
             Clicked.Invoke(this);
         }
 
-        public void BuyAndPlace<T1>() where T1 : IPlaceable, IBuyable, IProgressive, new()
-        {
-            var value = GameManager.Instance.TradeService.TryBuy<T1>();
-            if (value == null)
-            {
-                return;
-            }
-
-            SetContent(value);
-
-            value.ProgressChanged += ProgressChanged;
-        }
-
-        private void ProgressChanged(float value)
+        public void SetProgressBarValue(float value)
         {
             progressBar.size = value;
         }

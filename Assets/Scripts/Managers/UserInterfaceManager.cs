@@ -57,7 +57,18 @@ namespace Managers
         {
             var button = _listMenuViewInstance.AddButton(_buttonViewPrefab.GetComponent<Button>(), () =>
             {
-                cell.BuyAndPlace<T>();
+                var value = GameManager.Instance.TradeService.TryBuy<T>();
+                if (value == null)
+                {
+                    return;
+                }
+
+                cell.SetContent(value);
+                value.ProgressChanged += f =>
+                {
+                    cell.SetProgressBarValue(f);
+                };
+
                 Destroy(_listMenuViewInstance.gameObject);
             });
 
