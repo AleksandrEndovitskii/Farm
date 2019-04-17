@@ -1,9 +1,9 @@
 ﻿using GameObjects.Utils;
 
-namespace GameObjects.Production
+namespace GameObjects.Items
 {
     public class Milk : ISellable, IProduction, IInventoryItem, IFood
     {
-        public int SellPrice { get; }
+
     }
 }

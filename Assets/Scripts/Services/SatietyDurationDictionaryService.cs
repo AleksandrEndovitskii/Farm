@@ -1,5 +1,5 @@
 ﻿using System;
-using GameObjects;
+using GameObjects.Items;
 using GameObjects.Utils;
 using Services.Utils;
 using Utils;

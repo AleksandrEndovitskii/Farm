@@ -1,5 +1,5 @@
-﻿using GameObjects;
-using GameObjects.Cells;
+﻿using GameObjects.Cells;
+using GameObjects.Items;
 using GameObjects.Utils;
 using UnityEngine;
 using UnityEngine.UI;

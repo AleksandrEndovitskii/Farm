@@ -1,7 +1,7 @@
-﻿using GameObjects.Production;
+﻿using GameObjects.Producers;
 using GameObjects.Utils;
 
-namespace GameObjects
+namespace GameObjects.Items
 {
     public class Cow : AFuelRequiringProducer<Milk>, IBuyable, IPlaceable
     {
