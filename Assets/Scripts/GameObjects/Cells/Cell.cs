@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GameObjects.Utils;
 using Managers;
 using UnityEngine;
@@ -39,8 +39,18 @@ namespace GameObjects.Cells
                 return _content;
             }
         }
+        
+        public Type TypeOfImage
+        {
+            get
+            {
+                return _typeOfImage;
+            }
+        }
 
         private IPlaceable _content;
+
+        private Type _typeOfImage;
 
         public void Initialize()
         {
@@ -58,7 +68,7 @@ namespace GameObjects.Cells
             }
             else
             {
-                contentImage.sprite = GameManager.Instance.ImageManager.GetImage(_content.GetType().Name);
+                SetImageByType(_content.GetType());
             }
 
             progressBar.gameObject.SetActive(_content != null);
@@ -72,6 +82,18 @@ namespace GameObjects.Cells
         public void SetProgressBarValue(float value)
         {
             progressBar.size = value;
+        }
+
+        public void SetImageByType(Type type)
+        {
+            _typeOfImage = type;
+
+            contentImage.sprite = GameManager.Instance.ImageManager.GetImage(TypeOfImage.Name);
+        }
+
+        public void ShowProgressBarVisibility(bool visible)
+        {
+            progressBar.gameObject.SetActive(visible);
         }
     }
 }

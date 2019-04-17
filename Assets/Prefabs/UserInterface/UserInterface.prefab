@@ -59,7 +59,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _countersContainer: {fileID: 5239004005952471362}
-  counterPrefab: {fileID: 4716061150027148095, guid: 32f66ceaa928e9648942aaf5ffdf3c57,
+  counterPrefab: {fileID: 6345395614653923735, guid: 32f66ceaa928e9648942aaf5ffdf3c57,
+    type: 3}
+  counterWithImagePrefab: {fileID: 8271758969677386937, guid: 62da784813bd33e48b7e3728d412afe3,
     type: 3}
 --- !u!1 &6964602323350264201
 GameObject:
@@ -128,8 +130,10 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
+  m_ChildControlWidth: 0
   m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!114 &6919913367923470938
 MonoBehaviour:
   m_ObjectHideFlags: 0

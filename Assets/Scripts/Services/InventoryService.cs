@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameObjects.Items;
 using GameObjects.Utils;
+using Managers;
 using UnityEngine;
 using Utils;
 
@@ -16,7 +17,13 @@ namespace Services
 
         public void Initialize()
         {
+            GameManager.Instance.MoneyService.MoneyAmountChanged += MoneyAmountChanged;
+        }
 
+        private void MoneyAmountChanged(int value)
+        {
+            // money is kinda inventory item
+            InventoryItemAmountChanged.Invoke(typeof(Money), value);
         }
 
         public void Put(IInventoryItem inventoryItem)
@@ -62,7 +69,16 @@ namespace Services
 
         public int GetCount(Type type)
         {
-            var result = _inventoryItems.Count(x => x.GetType() == type);
+            var result = 0;
+
+            if (type == typeof(Money))
+            {
+                result = GameManager.Instance.MoneyService.MoneyAmount;
+            }
+            else
+            {
+                result = _inventoryItems.Count(x => x.GetType() == type);
+            }
 
             return result;
         }

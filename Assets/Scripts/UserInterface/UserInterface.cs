@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using GameObjects.Items;
 using Managers;
@@ -14,31 +14,31 @@ namespace UserInterface
         private VerticalLayoutGroup _countersContainer;
 
         [SerializeField]
-        private Counter counterPrefab;
+        private CounterWithImage counterWithImagePrefab;
 
         private Counter _moneyCounterInstance;
-        private Counter _wheatCounterInstance;
-        private Counter _milkCounterInstance;
-        private Counter _eggCounterInstance;
+        private CounterWithImage _wheatCounterInstance;
+        private CounterWithImage _milkCounterInstance;
+        private CounterWithImage _eggCounterInstance;
+
+        private Dictionary<Type, Counter> _countersByTypes = new Dictionary<Type, Counter>();
 
         public void Initialize()
         {
-            _moneyCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
-                "MoneyAmount: ", GameManager.Instance.MoneyService.MoneyAmount);
-            GameManager.Instance.MoneyService.MoneyAmountChanged += (i) =>
-            {
-                _moneyCounterInstance.SetValue(i.ToString());
-            };
+            var countersTypes = new List<Type>();
+            countersTypes.Add(typeof(Money));
+            countersTypes.Add(typeof(Wheat));
+            countersTypes.Add(typeof(Milk));
+            countersTypes.Add(typeof(Egg));
 
-            _wheatCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform, "WheatAmount: ",
-                typeof(Wheat));
-            _milkCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform, "MilkAmount: ",
-                typeof(Milk));
-            _eggCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform, "EggAmount: ",
-                typeof(Egg));
+            foreach (var countersType in countersTypes)
+            {
+                var instance = InstantiateCounter(counterWithImagePrefab, _countersContainer.gameObject.transform, countersType);
+                _countersByTypes.Add(countersType, instance);
+            }
         }
 
-        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, int defaultValue)
+        private T InstantiateCounter<T>(T counterPrefab, Transform parent, int defaultValue = 0, string caption = "") where T : Counter
         {
             var instance = Instantiate(counterPrefab);
             instance.gameObject.transform.SetParent(parent);
@@ -47,9 +47,10 @@ namespace UserInterface
             return instance;
         }
 
-        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, Type type)
+        private T InstantiateCounter<T>(T counterWithImagePrefab, Transform parent, Type type) where  T : CounterWithImage
         {
-            var instance = InstantiateCounter(counterPrefab, parent, caption, GameManager.Instance.InventoryService.GetCount(type));
+            var instance = InstantiateCounter(counterWithImagePrefab, parent, GameManager.Instance.InventoryService.GetCount(type));
+            instance.SetImageByType(type);
             GameManager.Instance.InventoryService.InventoryItemAmountChanged += (t, i) =>
             {
                 if (t == type)
