@@ -2,6 +2,6 @@
 {
     public interface ISellable
     {
-        int SellPrice { get; }
+
     }
 }
