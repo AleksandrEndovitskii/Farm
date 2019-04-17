@@ -3,7 +3,7 @@ using GameObjects.Utils;
 using Managers;
 using UnityEngine;
 
-namespace GameObjects
+namespace GameObjects.Producers
 {
     public abstract class AProducer<T> : IProducer, IProgressive where T : class, IProduction, new()
     {

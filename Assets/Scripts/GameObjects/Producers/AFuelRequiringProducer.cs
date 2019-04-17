@@ -2,7 +2,7 @@
 using Managers;
 using UnityEngine;
 
-namespace GameObjects
+namespace GameObjects.Producers
 {
     public abstract class AFuelRequiringProducer<T1> : AProducer<T1>, IFeedable where T1 : class, IProduction, new()
     {
