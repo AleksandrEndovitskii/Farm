@@ -6,6 +6,8 @@ namespace UserInterface
 {
     public class CounterWithImage : Counter
     {
+        public Action<Cell> Clicked = delegate { };
+
         [SerializeField]
         private Cell _cell;
 
@@ -17,12 +19,19 @@ namespace UserInterface
             // TODO: add visualization of inventory capacity for items
             _cell.ShowProgressBarVisibility(false);
 
+            _cell.Clicked += cell =>
+            {
+                Debug.Log(string.Format("Clicked on CounterWithImage in Cell with TypeOfContent of {0}.", _cell.TypeOfContent.Name));
+
+                Clicked.Invoke(cell);
+            };
+
             base.Initialize();
         }
 
         public void SetImageByType(Type type)
         {
-            _cell.SetImageByType(type);
+            _cell.SetTypeOfContent(type);
 
             _cell.gameObject.SetActive(true); // item was setted - make it visible
         }

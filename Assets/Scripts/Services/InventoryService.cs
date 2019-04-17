@@ -45,6 +45,7 @@ namespace Services
         public IInventoryItem TryPop<T>() where T : IInventoryItem
         {
             var inventoryItem = _inventoryItems.FirstOrDefault(x=>x.GetType() == typeof(T));
+            _inventoryItems.Remove(inventoryItem);
 
             if (inventoryItem == null)
             {
@@ -81,6 +82,22 @@ namespace Services
             }
 
             return result;
+        }
+
+        public void RemoveItemByType(Type type)
+        {
+            var inventoryItem = _inventoryItems.FirstOrDefault(x => x.GetType() == type);
+            _inventoryItems.Remove(inventoryItem);
+
+            InventoryItemAmountChanged.Invoke(type, _inventoryItems.Count(x => x.GetType() == type));
+        }
+
+        public void RemoveAllItemsByType(Type type)
+        {
+            var inventoryItems = _inventoryItems.FindAll(x => x.GetType() == type);
+            _inventoryItems.RemoveAll(x=> inventoryItems.Contains(x));
+
+            InventoryItemAmountChanged.Invoke(type, _inventoryItems.Count(x => x.GetType() == type));
         }
     }
 }

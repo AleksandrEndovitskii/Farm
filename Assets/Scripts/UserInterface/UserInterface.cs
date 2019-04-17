@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameObjects.Items;
+using GameObjects.Utils;
 using Managers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +17,7 @@ namespace UserInterface
         [SerializeField]
         private CounterWithImage counterWithImagePrefab;
 
-        private Counter _moneyCounterInstance;
-        private CounterWithImage _wheatCounterInstance;
-        private CounterWithImage _milkCounterInstance;
-        private CounterWithImage _eggCounterInstance;
-
-        private Dictionary<Type, Counter> _countersByTypes = new Dictionary<Type, Counter>();
+        private Dictionary<Type, Counter> _countersByTypesInstances = new Dictionary<Type, Counter>();
 
         public void Initialize()
         {
@@ -34,13 +30,28 @@ namespace UserInterface
             foreach (var countersType in countersTypes)
             {
                 var instance = InstantiateCounter(counterWithImagePrefab, _countersContainer.gameObject.transform, countersType);
-                _countersByTypes.Add(countersType, instance);
+                _countersByTypesInstances.Add(countersType, instance);
             }
         }
 
-        private T InstantiateCounter<T>(T counterPrefab, Transform parent, int defaultValue = 0, string caption = "") where T : Counter
+        private T InstantiateCounter<T>(T counterPrefab, Transform parent, int defaultValue = 0, string caption = "") where T : CounterWithImage
         {
             var instance = Instantiate(counterPrefab);
+            instance.Initialize();
+            instance.Clicked += cell =>
+            {
+                // try to sell inventory items of type of counters on which one click was performed
+                if (typeof(ISellable).IsAssignableFrom(cell.TypeOfContent))
+                {
+                    GameManager.Instance.TradeService.SellAllItemsByType(cell.TypeOfContent);
+                }
+                else
+                {
+                    Debug.Log(string.Format(
+                        "Clicked on CounterWithImage in Cell with TypeOfContent of {0} which one is not ISellable.",
+                        cell.TypeOfContent.Name));
+                }
+            };
             instance.gameObject.transform.SetParent(parent);
             instance.SetCaption(caption);
             instance.SetValue(defaultValue.ToString());

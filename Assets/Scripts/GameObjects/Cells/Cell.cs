@@ -40,17 +40,17 @@ namespace GameObjects.Cells
             }
         }
         
-        public Type TypeOfImage
+        public Type TypeOfContent
         {
             get
             {
-                return _typeOfImage;
+                return _typeOfContent;
             }
         }
 
         private IPlaceable _content;
 
-        private Type _typeOfImage;
+        private Type _typeOfContent;
 
         public void Initialize()
         {
@@ -68,7 +68,7 @@ namespace GameObjects.Cells
             }
             else
             {
-                SetImageByType(_content.GetType());
+                SetTypeOfContent(_content.GetType());
             }
 
             progressBar.gameObject.SetActive(_content != null);
@@ -84,11 +84,11 @@ namespace GameObjects.Cells
             progressBar.size = value;
         }
 
-        public void SetImageByType(Type type)
+        public void SetTypeOfContent(Type type)
         {
-            _typeOfImage = type;
+            _typeOfContent = type;
 
-            contentImage.sprite = GameManager.Instance.ImageManager.GetImage(TypeOfImage.Name);
+            contentImage.sprite = GameManager.Instance.ImageManager.GetImage(TypeOfContent.Name);
         }
 
         public void ShowProgressBarVisibility(bool visible)
