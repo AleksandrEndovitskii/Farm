@@ -12,19 +12,18 @@ namespace Services
 
         }
 
-        public void Sell(ISellable sellable)
+        public void Sell(ref ISellable sellable)
         {
+            var price = GameManager.Instance.SellPriceDictionaryService.GetSellPriceForType(sellable);
 
-        }
+            GameManager.Instance.MoneyService.MoneyAmount += price;
 
-        public void Buy(IBuyable buyable)
-        {
-
+            sellable = null;
         }
 
         public T TryBuy<T>() where T: IBuyable, new()
         {
-            var price = GameManager.Instance.buyPriceDictionaryService.GetBuyPriceForType<T>();
+            var price = GameManager.Instance.BuyPriceDictionaryService.GetBuyPriceForType<T>();
 
             if (price > GameManager.Instance.MoneyService.MoneyAmount)
             {

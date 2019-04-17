@@ -1,18 +1,24 @@
 ﻿using GameObjects.Utils;
 using Services.Utils;
+using Utils;
 
 namespace Services
 {
-    public class SellPriceDictionaryService : TypeValueDictionary
+    public class SellPriceDictionaryService : TypeValueDictionary, IInitializable
     {
+        public void Initialize()
+        {
+            //
+        }
+
         public void SetSellPriceForType<T>(int price) where T : ISellable
         {
             base.SetValueForType(typeof(T), price);
         }
 
-        public int GetSellPriceForType<T>() where T : ISellable
+        public int GetSellPriceForType(ISellable sellable)
         {
-            return base.GetValueForType(typeof(T));
+            return base.GetValueForType(sellable.GetType());
         }
     }
 }

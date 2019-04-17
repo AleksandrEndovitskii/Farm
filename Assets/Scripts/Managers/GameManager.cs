@@ -31,7 +31,9 @@ namespace Managers
 
         public ConfigurationService ConfigurationService;
 
-        public BuyPriceDictionaryService buyPriceDictionaryService;
+        public BuyPriceDictionaryService BuyPriceDictionaryService;
+
+        public SellPriceDictionaryService SellPriceDictionaryService;
 
         public TradeService TradeService;
 
@@ -73,8 +75,10 @@ namespace Managers
 
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
-            buyPriceDictionaryService = new BuyPriceDictionaryService();
-            buyPriceDictionaryService.Initialize();
+            BuyPriceDictionaryService = new BuyPriceDictionaryService();
+            BuyPriceDictionaryService.Initialize();
+            SellPriceDictionaryService = new SellPriceDictionaryService();
+            SellPriceDictionaryService.Initialize();
             // before trade need to know a price
             TradeService = new TradeService();
             TradeService.Initialize();

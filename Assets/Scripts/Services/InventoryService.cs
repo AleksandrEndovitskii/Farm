@@ -58,5 +58,12 @@ namespace Services
 
             return result;
         }
+
+        public int GetCount(Type type)
+        {
+            var result = _inventoryItems.Count(x => x.GetType() == type);
+
+            return result;
+        }
     }
 }
