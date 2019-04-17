@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Services
@@ -28,7 +30,7 @@ namespace Services
 
         private void Save(Config config, string jsonName)
         {
-            var json = JsonUtility.ToJson(config, true);
+            var json = JsonConvert.SerializeObject(config, Formatting.Indented);
 
             var filePath = Application.dataPath + "/" + jsonName;
 
@@ -44,7 +46,7 @@ namespace Services
             if (File.Exists(filePath))
             {
                 var json = File.ReadAllText(filePath);
-                config = JsonUtility.FromJson<Config>(json);
+                config = JsonConvert.DeserializeObject<Config>(json);
             }
             else
             {
@@ -60,11 +62,8 @@ namespace Services
     [Serializable]
     public class Config
     {
-        public int EggSellPrice;
-        public int MilkSellPrice;
+        public Dictionary<Type, int> SellTypeValues;
 
-        public int WheatBuyPrice;
-        public int CowBuyPrice;
-        public int ChickenBuyPrice;
+        public Dictionary<Type, int> BuyTypeValues;
     }
 }

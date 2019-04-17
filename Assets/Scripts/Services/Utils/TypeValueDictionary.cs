@@ -6,6 +6,14 @@ namespace Services.Utils
 {
     public class TypeValueDictionary
     {
+        public Dictionary<Type, int> TypeValue
+        {
+            get
+            {
+                return _typeValue;
+            }
+        }
+
         private Dictionary<Type, int> _typeValue = new Dictionary<Type, int>();
 
         public void SetValueForType(Type type, int value)

@@ -1,7 +1,11 @@
 {
-    "EggSellPrice": 0,
-    "MilkSellPrice": 0,
-    "WheatBuyPrice": 0,
-    "CowBuyPrice": 0,
-    "ChickenBuyPrice": 0
+  "SellTypeValues": {
+    "GameObjects.Items.Egg, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": 10,
+    "GameObjects.Items.Milk, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": 20
+  },
+  "BuyTypeValues": {
+    "GameObjects.Items.Wheat, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": 10,
+    "GameObjects.Items.Chicken, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": 20,
+    "GameObjects.Items.Cow, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null": 30
+  }
 }

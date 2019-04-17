@@ -1,4 +1,6 @@
-﻿using GameObjects.Utils;
+﻿using System;
+using GameObjects.Utils;
+using Managers;
 using Services.Utils;
 using Utils;
 
@@ -8,7 +10,10 @@ namespace Services
     {
         public void Initialize()
         {
-            //
+            foreach (var configBuyTypeValue in GameManager.Instance.ConfigurationService.Config.SellTypeValues)
+            {
+                SetSellPriceForType(configBuyTypeValue.Key, configBuyTypeValue.Value);
+            }
         }
 
         public void SetSellPriceForType<T>(int price) where T : ISellable
@@ -16,9 +21,19 @@ namespace Services
             base.SetValueForType(typeof(T), price);
         }
 
-        public int GetSellPriceForType(ISellable sellable)
+        public void SetSellPriceForType(Type type, int price)
+        {
+            base.SetValueForType(type, price);
+        }
+
+        public int GetSellPrice(ISellable sellable)
         {
             return base.GetValueForType(sellable.GetType());
+        }
+
+        public int GetSellPrice(Type type)
+        {
+            return base.GetValueForType(type);
         }
     }
 }
