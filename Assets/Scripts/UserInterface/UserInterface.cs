@@ -30,33 +30,12 @@ namespace UserInterface
                 _moneyCounterInstance.SetValue(i.ToString());
             };
 
-            _wheatCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
-                "WheatAmount: ", GameManager.Instance.InventoryService.GetCount<Wheat>());
-            GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
-            {
-                if (type == typeof(Wheat))
-                {
-                    _wheatCounterInstance.SetValue(i.ToString());
-                }
-            };
-            _milkCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
-                "MilkAmount: ", GameManager.Instance.InventoryService.GetCount<Milk>());
-            GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
-            {
-                if (type == typeof(Milk))
-                {
-                    _milkCounterInstance.SetValue(i.ToString());
-                }
-            };
-            _eggCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform,
-                "EggAmount: ", GameManager.Instance.InventoryService.GetCount<Egg>());
-            GameManager.Instance.InventoryService.InventoryItemAmountChanged += (type, i) =>
-            {
-                if (type == typeof(Egg))
-                {
-                    _eggCounterInstance.SetValue(i.ToString());
-                }
-            };
+            _wheatCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform, "WheatAmount: ",
+                typeof(Wheat));
+            _milkCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform, "MilkAmount: ",
+                typeof(Milk));
+            _eggCounterInstance = InstantiateCounter(counterPrefab, _countersContainer.gameObject.transform, "EggAmount: ",
+                typeof(Egg));
         }
 
         private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, int defaultValue)
@@ -68,24 +47,14 @@ namespace UserInterface
             return instance;
         }
 
-        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, int defaultValue, Action<int> action)
+        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, Type type)
         {
-            var instance = InstantiateCounter(counterPrefab, parent, caption, defaultValue);
-            action += (i) =>
-            {
-                instance.SetValue(i.ToString());
-            };
-            return instance;
-        }
-
-        private Counter InstantiateCounter(Counter counterPrefab, Transform parent, string caption, int defaultValue, Type type, Action<Type,int> action)
-        {
-            var instance = InstantiateCounter(counterPrefab, parent, caption, defaultValue);
-            action += (t,i) =>
+            var instance = InstantiateCounter(counterPrefab, parent, caption, GameManager.Instance.InventoryService.GetCount(type));
+            GameManager.Instance.InventoryService.InventoryItemAmountChanged += (t, i) =>
             {
                 if (t == type)
                 {
-                    instance.SetValue(i.ToString()); 
+                    instance.SetValue(i.ToString());
                 }
             };
 
