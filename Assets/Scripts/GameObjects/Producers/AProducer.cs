@@ -11,7 +11,6 @@ namespace GameObjects.Producers
         public Action<IProduction> ProductionIsReady = delegate { };
         public Action WillProduceAfterSecondsCountChanged = delegate { };
 
-        private int _willProduceAfterSecondsCount;
         public int WillProduceAfterSecondsCount
         {
             get
@@ -61,6 +60,8 @@ namespace GameObjects.Producers
             }
         }
 
+        private int _willProduceAfterSecondsCount;
+
         public AProducer()
         {
             ProgressChanged = delegate { };
@@ -107,7 +108,7 @@ namespace GameObjects.Producers
             return production;
         }
 
-        private void TimeManagerOnSecondPassed()
+        private void TimeManagerOnSecondPassed(int value)
         {
             TryProduceProduct();
         }

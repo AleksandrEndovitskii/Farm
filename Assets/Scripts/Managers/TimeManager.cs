@@ -7,7 +7,17 @@ namespace Managers
 {
     public class TimeManager : MonoBehaviour, IInitializable
     {
-        public event Action SecondPassed = delegate { };
+        public event Action<int> SecondPassed = delegate { };
+
+        public int SecondsPassedCount
+        {
+            get
+            {
+                return _secondsPassedCount;
+            }
+        }
+
+        private int _secondsPassedCount;
 
         public void Initialize()
         {
@@ -20,9 +30,11 @@ namespace Managers
             {
                 yield return new WaitForSeconds(1);
 
+                _secondsPassedCount++;
+
                 Debug.Log("Second is passed.");
 
-                SecondPassed.Invoke();
+                SecondPassed.Invoke(SecondsPassedCount);
             }
         }
     }
