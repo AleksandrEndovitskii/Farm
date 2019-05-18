@@ -47,6 +47,8 @@ namespace Managers
 
         public ProducerProductionDictionaryService ProducerProductionDictionaryService;
 
+        public SaveLoadService SaveLoadService;
+
         private void Awake()
         {
             if (Instance == null)
@@ -72,6 +74,9 @@ namespace Managers
             GameObjectsManager.Initialize();
             ImageManager.Initialize();
             TimeManager.Initialize();
+
+            SaveLoadService = new SaveLoadService();
+            SaveLoadService.Initialize();
 
             ConfigurationService = new ConfigurationService();
             ConfigurationService.Initialize();
